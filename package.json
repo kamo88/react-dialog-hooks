@@ -1,0 +1,25 @@
+{
+  "name": "@kamo88/react-dialog",
+  "version": "1.0.0",
+  "description": "react dialog component library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kamo88/react-dialog.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "react-use",
+    "focus-trap-react"
+  ],
+  "author": "kamo88 (https://github.com/kamo88)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamo88/react-dialog/issues"
+  },
+  "homepage": "https://github.com/kamo88/react-dialog#readme"
+}
