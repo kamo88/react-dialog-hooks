@@ -11,6 +11,11 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -24,6 +29,16 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'import/no-unresolved': ['error', { ignore: ['\\.svg$'] }],
+    'import/extensions': [
+      'error',
+      {
+        ignorePackages: true,
+        pattern: {
+          ts: 'never',
+          tsx: 'never',
+        },
+      },
+    ],
   },
   overrides: [
     {
