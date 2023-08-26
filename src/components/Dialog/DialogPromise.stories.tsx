@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FC, useCallback, useMemo } from 'react';
 
-import { useDialog } from '.';
+import { useDialogPromise, DialogResponse } from '.';
 import { DialogExampleBase } from './DialogExampleBase';
 import type { Props as DialogExampleBaseProps } from './DialogExampleBase';
 
@@ -24,7 +24,14 @@ const DialogExample: FC<Props> = ({
   actionCloseDialogSub,
   actionClickAbort,
 }) => {
-  const { ref, isOpen, showDialog, closeDialog } = useDialog();
+  const {
+    ref,
+    isOpen,
+    showDialog,
+    closeDialogMain,
+    closeDialogSub,
+    closeDialogAbort,
+  } = useDialogPromise();
 
   const shouldFocusTrapCal = useMemo(() => {
     if (shouldFocusTrap) return undefined;
@@ -36,25 +43,39 @@ const DialogExample: FC<Props> = ({
     return false;
   }, [initialFocus]);
 
-  const handleShowDialog = useCallback(() => {
-    showDialog();
-    actionShowDialog('showDialog');
+  const handleShowDialog = useCallback(async () => {
+    const dialogRes = await showDialog();
+    let value = 'no dialog response';
+    switch (dialogRes) {
+      case DialogResponse.main:
+        value = 'promise dialog response: main';
+        break;
+      case DialogResponse.sub:
+        value = 'promise dialog response: sub';
+        break;
+      case DialogResponse.abort:
+        value = 'promise dialog response: abort';
+        break;
+      default:
+        break;
+    }
+    actionShowDialog(value);
   }, [actionShowDialog, showDialog]);
 
   const handleCloseDialogMain = useCallback(() => {
-    closeDialog();
-    actionCloseDialogMain('closeDialog');
-  }, [actionCloseDialogMain, closeDialog]);
+    closeDialogMain();
+    actionCloseDialogMain('closeDialogMain');
+  }, [actionCloseDialogMain, closeDialogMain]);
 
   const handleCloseDialogSub = useCallback(() => {
-    closeDialog();
-    actionCloseDialogSub('closeDialog');
-  }, [actionCloseDialogSub, closeDialog]);
+    closeDialogSub();
+    actionCloseDialogSub('closeDialogSub');
+  }, [actionCloseDialogSub, closeDialogSub]);
 
   const handleCloseDialogAway = useCallback(() => {
-    closeDialog();
-    actionClickAbort('closeDialog');
-  }, [actionClickAbort, closeDialog]);
+    closeDialogAbort();
+    actionClickAbort('closeDialogAbort');
+  }, [actionClickAbort, closeDialogAbort]);
 
   return (
     <DialogExampleBase
@@ -73,11 +94,38 @@ const DialogExample: FC<Props> = ({
 };
 
 const code = `const DialogExample: FC = () => {
-    const { ref, isOpen, showDialog, closeDialog } = useDialog();
+    const {
+      ref,
+      isOpen,
+      showDialog,
+      closeDialogMain,
+      closeDialogSub,
+      closeDialogAbort,
+    } = useDialogPromise();
+
+
+    const handleShowDialog = useCallback(async () => {
+      const dialogRes = await showDialog();
+
+      if (dialogRes === DialogResponse.main) {
+        // main processing ex) primary button\`s action
+        return;
+      }
+
+      if (dialogRes === DialogResponse.sub) {
+        // sub processing ex) secondary button\`s action
+        return;
+      }
+
+      if (dialogRes === DialogResponse.abort) {
+        // abort processing ex) click away\`s action & Dialog\`s unmount
+      }
+
+    }, [showDialog]);
   
     return (
         <>
-            <button type="button" onClick={showDialog}>showDialog</button>
+            <button type="button" onClick={handleShowDialog}>showDialog</button>
             <Dialog
                 portalTargetId={portalTargetId}
                 className={className}
@@ -86,14 +134,15 @@ const code = `const DialogExample: FC = () => {
                 className="dialogClass"
                 shouldFocusTrap
                 initialFocus={false}
-                onClickAway={closeDialog}
+                onClickAway={closeDialogAbort}
             >
                 <div>
                     <div>header</div>
                     <div>main</div>
                     <div>
                         footer 
-                        <button type="button" onClick={closeDialog}>closeDialog</button>
+                        <button type="button" onClick={closeDialogMain}>closeDialog main</button>
+                        <button type="button" onClick={closeDialogSub}>closeDialog sub</button>
                     </div>
                 </div>
             </Dialog>
@@ -103,7 +152,7 @@ const code = `const DialogExample: FC = () => {
 `;
 
 const meta = {
-  title: 'components/Dialog/Default',
+  title: 'components/Dialog/Promise',
   component: DialogExample,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
