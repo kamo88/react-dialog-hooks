@@ -72,24 +72,113 @@ const DialogExample: FC<Props> = ({
   );
 };
 
+const code = `const DialogExample: FC = () => {
+    const { ref, isOpen, showDialog, closeDialog } = useDialog();
+  
+    return (
+        <>
+            <button type="button" onClick={showDialog}>showDialog</button>
+            <Dialog
+                portalTargetId={portalTargetId}
+                className={className}
+                ref={ref}
+                isOpen={isOpen}
+                className="dialogClass"
+                shouldFocusTrap
+                initialFocus={false}
+                onClickAway={closeDialog}
+            >
+                <div>
+                    <div>header</div>
+                    <div>main</div>
+                    <div>
+                        footer 
+                        <button type="button" onClick={closeDialog}>closeDialog</button>
+                    </div>
+                </div>
+            </Dialog>
+        </>
+    );
+  };
+`;
+
 const meta = {
   title: 'components/Dialog',
   component: DialogExample,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
+    docs: {
+      source: {
+        code,
+      },
+    },
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    portalTargetId: { control: 'text' },
-    className: { control: 'text' },
-    shouldFocusTrap: { control: 'boolean' },
-    initialFocus: { control: 'boolean' },
-    actionShowDialog: { action: 'actionShowDialog' },
-    actionCloseDialogMain: { action: 'actionCloseDialogMain' },
-    actionCloseDialogSub: { action: 'actionCloseDialogSub' },
-    actionClickAbort: { action: 'actionClickAbort' },
+    portalTargetId: {
+      control: 'text',
+      description: `Dialog Component Props<br>
+        This is createPortal's target element id.<br>
+        not required<br>
+        default: "root-modal"`,
+    },
+    className: {
+      control: 'text',
+      description: `Dialog Component Props<br>
+    This is <dialog> element's className.
+    Please use CSS framework. ex) tailwindcss.<br>
+    not required<br>
+    As a side note, you can also use css props (@emotion/css).
+    `,
+    },
+    shouldFocusTrap: {
+      control: 'boolean',
+      description: `**Dialog Component Props**<br>
+    not required<br>
+    This will be props whether to use focus-trap or not.<br>
+    When using this function, please put focusable elements in the children.<br>
+    default: true
+    `,
+    },
+    initialFocus: {
+      control: 'boolean',
+      description: `**Dialog Component Props**<br>
+    not required<br>
+    This is based on the focus-trap property.<br>
+    type: undefined | false<br>
+    default: undefined ≒ auto focus
+    `,
+    },
+    actionShowDialog: {
+      action: 'actionShowDialog',
+      description: `**Not Dialog Component Props**<br>
+      This is props for use in storybook.<br>
+      See 'show code' for actual usage in this page.
+    `,
+    },
+    actionCloseDialogMain: {
+      action: 'actionCloseDialogMain',
+      description: `**Not Dialog Component Props**<br>
+    This is props for use in storybook.<br>
+    See 'show code' for actual usage in this page.
+  `,
+    },
+    actionCloseDialogSub: {
+      action: 'actionCloseDialogSub',
+      description: `**Not Dialog Component Props**<br>
+    This is props for use in storybook.<br>
+    See 'show code' for actual usage in this page.
+  `,
+    },
+    actionClickAbort: {
+      action: 'actionClickAbort',
+      description: `**Not Dialog Component Props**<br>
+    This is props for use in storybook.<br>
+    See 'show code' for actual usage in this page.
+  `,
+    },
   },
 } satisfies Meta<typeof DialogExample>;
 
