@@ -8,10 +8,10 @@ import type { Props as DialogExampleBaseProps } from './DialogExampleBase';
 type Props = Pick<DialogExampleBaseProps, 'portalTargetId' | 'className'> & {
   shouldFocusTrap: boolean;
   initialFocus: boolean;
-  actionShowDialog: () => void;
-  actionCloseDialogMain: () => void;
-  actionCloseDialogSub: () => void;
-  actionClickAbort: () => void;
+  actionShowDialog: (value: unknown) => void;
+  actionCloseDialogMain: (value: unknown) => void;
+  actionCloseDialogSub: (value: unknown) => void;
+  actionClickAbort: (value: unknown) => void;
 };
 
 const DialogExample: FC<Props> = ({
@@ -38,22 +38,22 @@ const DialogExample: FC<Props> = ({
 
   const handleShowDialog = useCallback(() => {
     showDialog();
-    actionShowDialog();
+    actionShowDialog('showDialog');
   }, [actionShowDialog, showDialog]);
 
   const handleCloseDialogMain = useCallback(() => {
     closeDialog();
-    actionCloseDialogMain();
+    actionCloseDialogMain('closeDialog');
   }, [actionCloseDialogMain, closeDialog]);
 
   const handleCloseDialogSub = useCallback(() => {
     closeDialog();
-    actionCloseDialogSub();
+    actionCloseDialogSub('closeDialog');
   }, [actionCloseDialogSub, closeDialog]);
 
   const handleCloseDialogAway = useCallback(() => {
     closeDialog();
-    actionClickAbort();
+    actionClickAbort('closeDialog');
   }, [actionClickAbort, closeDialog]);
 
   return (
@@ -81,7 +81,6 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     portalTargetId: { control: 'text' },
     className: { control: 'text' },
