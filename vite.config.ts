@@ -37,6 +37,7 @@ export default defineConfig(({ mode }) => ({
       exclude: [
         path.resolve(__dirname, 'src/**/*.test.*'),
         path.resolve(__dirname, 'src/**/*.stories.*'),
+        path.resolve(__dirname, 'src/**/*.example.*'),
       ],
       include: [
         path.resolve(__dirname, 'src/index.ts'),

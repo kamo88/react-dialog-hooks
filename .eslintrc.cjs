@@ -56,7 +56,7 @@ module.exports = {
       files: [
         'vite.config.ts',
         'src/**/*.stories.*',
-        'src/**/*Example*.*',
+        'src/**/*.example.*',
         'src/**/*.test.*',
       ],
       rules: {
