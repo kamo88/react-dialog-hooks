@@ -3,9 +3,10 @@ import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 import dts from 'vite-plugin-dts';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
@@ -41,5 +42,12 @@ export default defineConfig({
       ],
       outDir: path.resolve(__dirname, 'dist/types'),
     }),
+    mode === 'analyze' &&
+      visualizer({
+        open: true,
+        filename: 'analyze/stats.html',
+        gzipSize: true,
+        brotliSize: true,
+      }),
   ],
-});
+}));
