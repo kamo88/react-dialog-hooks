@@ -11,7 +11,7 @@ npm i kamo88/react-dialog
 
 This React component & hooks are to be displayed using the dialog tag.
 
-Please see [This usage (storybook)](https://kamo88.github.io/react-dialog/)
+[storybook](https://kamo88.github.io/react-dialog/)
 
 ## Description
 
@@ -62,8 +62,8 @@ const ShowDialogComponent = () => {
 
 ### useDialogPromise
 
-The use of showDialog's return is Promise.
-Wait for user operation in a Promise and handle it with its return ('main', 'sub', 'abort' type string).
+The use of showDialog's return is Promise.<br>
+Wait for user operation in a Promise and handle it with its return ('main', 'sub', 'abort' type string).<br>
 ※ The same behavior can be implemented in useDialog, even though Promise cannot be used.
 
 <details>
@@ -128,3 +128,16 @@ const ShowPromiseDialogComponent = () => {
 ```
 
 </details>
+
+## Dialog Props
+
+| key             | type                                 | required | default    | description                                                                                                                                             |
+| --------------- | ------------------------------------ | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ref             | React.RefObject\<HTMLDialogElement\> | ⭕       |            | dialog ref                                                                                                                                              |
+| portalTargetId  | string                               |          | root-modal | ReactDom.createPortal\`s target element id                                                                                                              |
+| children        | ReactNode                            | ⭕       |            | dialog contents                                                                                                                                         |
+| isOpen          | boolean                              | ⭕       |            | dialog open state                                                                                                                                       |
+| shouldFocusTrap | boolean                              |          | true       |                                                                                                                                                         |
+| initialFocus    | undefined or false                   |          | undefined  | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.                                                |
+| className       | string                               |          |            | This is \<dialog\> element\`s className.<br> Please use CSS framework. ex) tailwindcss. <br> As a side note, you can also use css props (@emotion/css). |
+| onClickAway     | () => void                           |          |            | Event when backdrop in Dialog is clicked.                                                                                                               |
