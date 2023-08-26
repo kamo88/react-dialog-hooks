@@ -1,4 +1,6 @@
 import { forwardRef } from 'react';
+import { clsx } from 'clsx';
+import { Button } from '@/components/Button/ButtonExample';
 import { Dialog } from '.';
 
 export type Props = {
@@ -29,28 +31,38 @@ export const DialogExampleBase = forwardRef<HTMLDialogElement, Props>(
     ref,
   ) => (
     <div>
-      <button type="button" onClick={handleShowDialog}>
-        showDialog!!!!
-      </button>
+      <Button onClick={handleShowDialog}>showDialog!!!!</Button>
       <Dialog
         portalTargetId={portalTargetId}
-        className={className}
+        className={clsx('backdrop:bg-gray-900 backdrop:opacity-80', className)}
         shouldFocusTrap={shouldFocusTrap}
         initialFocus={initialFocus}
         ref={ref}
         isOpen={isOpen}
         onClickAway={handleClickAway}
       >
-        <div>
-          <div>header</div>
-          <div>main</div>
-          <div>
-            <button type="button" onClick={handleCloseDialogMain}>
+        <div
+          className={clsx(
+            'h-80 w-96 p-2',
+            'flex flex-col justify-between',
+            'divide-y divide-solid',
+          )}
+        >
+          <div className={clsx('flex-initial', 'h-8')}>header</div>
+          <div className={clsx('flex-auto', 'overflow-y-scroll')}>
+            <div className={clsx('h-[500px]')}>main</div>
+          </div>
+          <div
+            className={clsx(
+              'flex-initial',
+              'h-max pt-2',
+              'flex items-center justify-between',
+            )}
+          >
+            <Button onClick={handleCloseDialogMain}>
               closeDialog main!!!!
-            </button>
-            <button type="button" onClick={handleCloseDialogSub}>
-              closeDialog sub!!!!
-            </button>
+            </Button>
+            <Button onClick={handleCloseDialogSub}>closeDialog sub!!!!</Button>
           </div>
         </div>
       </Dialog>
