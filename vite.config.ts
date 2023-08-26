@@ -14,7 +14,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: '@kamo88-dialog', // グローバル変数として公開するライブラリの変数名
+      name: '@kamo88-dialog',
+      fileName: 'index',
       formats: ['es', 'umd'],
     },
     rollupOptions: {
