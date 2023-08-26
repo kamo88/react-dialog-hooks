@@ -50,4 +50,7 @@ export default defineConfig(({ mode }) => ({
         brotliSize: true,
       }),
   ],
+  test: {
+    environment: 'jsdom',
+  },
 }));

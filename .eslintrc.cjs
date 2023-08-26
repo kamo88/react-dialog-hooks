@@ -53,7 +53,12 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['vite.config.ts', 'src/**/*.stories.*', 'src/**/*Example*.*'],
+      files: [
+        'vite.config.ts',
+        'src/**/*.stories.*',
+        'src/**/*Example*.*',
+        'src/**/*.test.*',
+      ],
       rules: {
         'import/no-extraneous-dependencies': 'off',
       },
