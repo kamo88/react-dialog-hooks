@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install
-      - run: echo test
+      - run: npm run test
   build:
     name: build
     runs-on: ubuntu-latest
