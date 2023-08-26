@@ -1,27 +1,130 @@
-# React + TypeScript + Vite
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![npm version](https://badge.fury.io/js/@kamo88%2Freact-dialog.svg)](https://badge.fury.io/js/@kamo88%2Freact-dialog)
+[![pages-build-deployment](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment)
+[![Publish Package to npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```
+npm i kamo88/react-dialog
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# kamo88/react-dialog
+
+This React component & hooks are to be displayed using the dialog tag.
+
+Please see [This usage (storybook)](https://kamo88.github.io/react-dialog/)
+
+## Description
+
+1. Stop body scrolling when displaying dialogs using [react-use/useLockBodyScroll](https://github.com/streamich/react-use/blob/master/docs/useLockBodyScroll.md).
+2. Loop the focus only within the content in the dialog using [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme).
+3. As we are using createPotal functionality of react-dom, please set portalTargetId ("root-modal" by default) in the props of the Dialog component.
+4. Set the style of the dialog backdrop using the className of the props. ex) [tailwindcss](https://tailwindcss.com/) , css modules ([@emotion/react](https://www.npmjs.com/package/@emotion/react) is also available)
+
+## Usage
+
+### useDialog
+
+Normal usage.
+
+<details>
+
+<summary>example</summary>
+
+```tsx
+import { Dialog, useDialog } from '@kamo88/react-dialog';
+
+const ShowDialogComponent = () => {
+  const { ref, isOpen, showDialog, closeDialog } = useDialog();
+
+  return (
+    <>
+      <button type="button" onClick={showDialog}>
+        showDialog
+      </button>
+      <Dialog ref={ref} isOpen={isOpen} onClickAway={closeDialog}>
+        <div>
+          <div>header</div>
+          <div>main</div>
+          <div>
+            footer
+            <button type="button" onClick={closeDialog}>
+              closeDialog
+            </button>
+          </div>
+        </div>
+      </Dialog>
+    </>
+  );
+};
+```
+
+</details>
+
+### useDialogPromise
+
+The use of showDialog's return is Promise.
+Wait for user operation in a Promise and handle it with its return ('main', 'sub', 'abort' type string).
+※ The same behavior can be implemented in useDialog, even though Promise cannot be used.
+
+<details>
+
+<summary>example</summary>
+
+```tsx
+import { useCallback } from 'react';
+import { Dialog, useDialogPromise, DialogResponse } from '@kamo88/react-dialog';
+
+const ShowPromiseDialogComponent = () => {
+  const {
+    ref,
+    isOpen,
+    showDialog,
+    closeDialogMain,
+    closeDialogSub,
+    closeDialogAbort,
+  } = useDialogPromise();
+
+  const handleShowDialog = useCallback(async () => {
+    const dialogRes = await showDialog();
+
+    if (dialogRes === DialogResponse.main) {
+      // main processing ex) primary button\`s action
+      return;
+    }
+
+    if (dialogRes === DialogResponse.sub) {
+      // sub processing ex) secondary button\`s action
+      return;
+    }
+
+    if (dialogRes === DialogResponse.abort) {
+      // abort processing ex) click away\`s action & Dialog\`s unmount
+    }
+  }, [showDialog]);
+
+  return (
+    <>
+      <button type="button" onClick={handleShowDialog}>
+        showDialog
+      </button>
+      <Dialog ref={ref} isOpen={isOpen} onClickAway={closeDialogAbort}>
+        <div>
+          <div>header</div>
+          <div>main</div>
+          <div>
+            footer
+            <button type="button" onClick={closeDialogMain}>
+              closeDialog main
+            </button>
+            <button type="button" onClick={closeDialogSub}>
+              closeDialog sub
+            </button>
+          </div>
+        </div>
+      </Dialog>
+    </>
+  );
+};
+```
+
+</details>
