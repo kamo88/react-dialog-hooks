@@ -34,6 +34,7 @@ export default defineConfig({
     dts({
       pathsToAliases: true,
       include: [
+        path.resolve(__dirname, 'src/index.ts'),
         path.resolve(__dirname, 'src/components/Dialog/hooks'),
         path.resolve(__dirname, 'src/components/Dialog/Dialog.tsx'),
         path.resolve(__dirname, 'src/components/Dialog/index.ts'),
