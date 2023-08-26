@@ -34,6 +34,10 @@ export default defineConfig(({ mode }) => ({
     tsconfigPaths(),
     dts({
       pathsToAliases: true,
+      exclude: [
+        path.resolve(__dirname, 'src/**/*.test.*'),
+        path.resolve(__dirname, 'src/**/*.stories.*'),
+      ],
       include: [
         path.resolve(__dirname, 'src/index.ts'),
         path.resolve(__dirname, 'src/components/Dialog/hooks'),
