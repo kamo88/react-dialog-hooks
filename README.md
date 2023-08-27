@@ -4,12 +4,12 @@
 [![package-publish-to-npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
 
 ```
-npm i kamo88/react-dialog
+npm i @kamo88/react-dialog
 ```
 
 # kamo88/react-dialog
 
-This React component & hooks are to be displayed using the dialog tag.
+This React component & hooks are to be displayed using the \<dialog\> tag.
 
 [storybook](https://kamo88.github.io/react-dialog/)
 
