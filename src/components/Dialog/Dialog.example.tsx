@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { clsx } from 'clsx';
-import { Button } from '@/components/Button/ButtonExample';
+import { Button } from '@/components/Button/Button.example';
 import { Dialog } from '.';
 
 export type Props = {
