@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { clsx } from 'clsx';
-import { Button } from '@/components/Button/ButtonExample';
+import { Button } from '@/components/Button/Button.example';
 import { Dialog } from '.';
 
 export type Props = {
@@ -15,7 +15,7 @@ export type Props = {
   handleClickAway?: () => void;
 };
 
-export const DialogExampleBase = forwardRef<HTMLDialogElement, Props>(
+export const DialogExample = forwardRef<HTMLDialogElement, Props>(
   (
     {
       portalTargetId,

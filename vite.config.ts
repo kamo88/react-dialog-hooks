@@ -34,11 +34,15 @@ export default defineConfig(({ mode }) => ({
     tsconfigPaths(),
     dts({
       pathsToAliases: true,
+      exclude: [
+        path.resolve(__dirname, 'src/**/*.test.*'),
+        path.resolve(__dirname, 'src/**/*.stories.*'),
+        path.resolve(__dirname, 'src/**/*.example.*'),
+        path.resolve(__dirname, 'src/components/Dialog/DialogContainer.tsx'),
+      ],
       include: [
         path.resolve(__dirname, 'src/index.ts'),
-        path.resolve(__dirname, 'src/components/Dialog/hooks'),
-        path.resolve(__dirname, 'src/components/Dialog/Dialog.tsx'),
-        path.resolve(__dirname, 'src/components/Dialog/index.ts'),
+        path.resolve(__dirname, 'src/components/Dialog'),
       ],
       outDir: path.resolve(__dirname, 'dist/types'),
     }),
