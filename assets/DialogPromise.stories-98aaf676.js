@@ -33,7 +33,7 @@ import{j as F,D as A}from"./Dialog.example-30ed56f3.js";import{r as e}from"./ind
             <button type="button" onClick={handleShowDialog}>showDialog</button>
             <Dialog
                 portalTargetId={portalTargetId}
-                className={className}
+                className="backdrop:bg-gray-900 backdrop:opacity-80"
                 ref={ref}
                 isOpen={isOpen}
                 className="dialogClass"
@@ -59,7 +59,7 @@ import{j as F,D as A}from"./Dialog.example-30ed56f3.js";import{r as e}from"./ind
         not required<br>
         default: "root-modal"`},className:{control:"text",description:`Dialog Component Props<br>
     This is <dialog> element\`s className.
-    Please use CSS framework. ex) tailwindcss.<br>
+    Please use CSS framework. code ex) tailwindcss.<br>
     not required<br>
     As a side note, you can also use css props (@emotion/css).
     `},shouldFocusTrap:{control:"boolean",description:`**Dialog Component Props**<br>
@@ -90,4 +90,4 @@ import{j as F,D as A}from"./Dialog.example-30ed56f3.js";import{r as e}from"./ind
     initialFocus: true
   }
 }`,...(w=(C=d.parameters)==null?void 0:C.docs)==null?void 0:w.source}}};const _=["Dialog"];export{d as Dialog,_ as __namedExportsOrder,j as default};
-//# sourceMappingURL=DialogPromise.stories-ce438f00.js.map
+//# sourceMappingURL=DialogPromise.stories-98aaf676.js.map
