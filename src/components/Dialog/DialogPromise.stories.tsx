@@ -128,7 +128,7 @@ const code = `const DialogExample: FC = () => {
             <button type="button" onClick={handleShowDialog}>showDialog</button>
             <Dialog
                 portalTargetId={portalTargetId}
-                className={className}
+                className="backdrop:bg-gray-900 backdrop:opacity-80"
                 ref={ref}
                 isOpen={isOpen}
                 className="dialogClass"
@@ -177,7 +177,7 @@ const meta = {
       control: 'text',
       description: `Dialog Component Props<br>
     This is <dialog> element\`s className.
-    Please use CSS framework. ex) tailwindcss.<br>
+    Please use CSS framework. code ex) tailwindcss.<br>
     not required<br>
     As a side note, you can also use css props (@emotion/css).
     `,
