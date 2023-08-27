@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FC, useCallback, useMemo } from 'react';
 
 import { useDialogPromise, DialogResponse } from '.';
-import { DialogExampleBase } from './DialogExampleBase';
-import type { Props as DialogExampleBaseProps } from './DialogExampleBase';
+import { DialogExample as DialogExampleBase } from './Dialog.example';
+import type { Props as DialogExampleBaseProps } from './Dialog.example';
 
 type Props = Pick<DialogExampleBaseProps, 'portalTargetId' | 'className'> & {
   shouldFocusTrap: boolean;

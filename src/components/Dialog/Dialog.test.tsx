@@ -1,7 +1,7 @@
 import { expect, test, describe, beforeAll, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import { FC, useMemo } from 'react';
-import { DialogExampleBase } from './DialogExampleBase';
+import { DialogExample as DialogExampleBase } from './Dialog.example';
 import { useDialog } from './hooks/useDialog';
 
 type DialogTestProps = {
