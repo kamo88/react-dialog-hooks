@@ -1,15 +1,15 @@
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![npm version](https://badge.fury.io/js/@kamo88%2Freact-dialog.svg)](https://badge.fury.io/js/@kamo88%2Freact-dialog)
+[![npm version](https://badge.fury.io/js/@kamo88%2Freact-dialog.svg?v=0.9.4)](https://badge.fury.io/js/@kamo88%2Freact-dialog)
 [![pages-build-deployment](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment)
 [![package-publish-to-npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
 
 ```
-npm i kamo88/react-dialog
+npm i @kamo88/react-dialog
 ```
 
-# kamo88/react-dialog
+# @kamo88/react-dialog
 
-This React component & hooks are to be displayed using the dialog tag.
+This React component & hooks are to be displayed using the \<dialog\> tag.
 
 [storybook](https://kamo88.github.io/react-dialog/)
 
