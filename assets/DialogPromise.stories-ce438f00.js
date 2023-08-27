@@ -1,4 +1,4 @@
-import{j as v,D as F}from"./DialogExampleBase-eea1d673.js";import{r as e}from"./index-6bd1afc7.js";import"./_commonjsHelpers-de833af9.js";import"./index-9d475cdf.js";const d={main:"main",sub:"sub",abort:"abort"},A=()=>{const a=e.useRef(null),r=e.useRef(new Promise(o=>{o("abort")})),s=e.useRef(()=>()=>{}),[n,t]=e.useState(!1),l=e.useCallback(()=>{var o;return s.current("abort"),t(!0),(o=a.current)==null||o.showModal(),r.current=new Promise(p=>{s.current=p}),r.current},[]),c=e.useCallback(()=>{var o;t(!1),(o=a.current)==null||o.close(),s.current("main")},[]),u=e.useCallback(()=>{var o;t(!1),(o=a.current)==null||o.close(),s.current("sub")},[]),i=e.useCallback(()=>{var o;t(!1),(o=a.current)==null||o.close(),s.current("abort")},[]);return e.useEffect(()=>()=>i(),[i]),{ref:a,isOpen:n,showDialog:l,closeDialogMain:c,closeDialogSub:u,closeDialogAbort:i}},M=({portalTargetId:a,className:r,shouldFocusTrap:s,initialFocus:n,actionShowDialog:t,actionCloseDialogMain:l,actionCloseDialogSub:c,actionClickAbort:u})=>{const{ref:i,isOpen:o,showDialog:p,closeDialogMain:m,closeDialogSub:D,closeDialogAbort:h}=A(),k=e.useMemo(()=>{if(!s)return!1},[s]),S=e.useMemo(()=>{if(!n)return!1},[n]),y=e.useCallback(async()=>{const R=await p();let g="no dialog response";switch(R){case d.main:g="promise dialog response: main";break;case d.sub:g="promise dialog response: sub";break;case d.abort:g="promise dialog response: abort";break}t(g)},[t,p]),T=e.useCallback(()=>{m(),l("closeDialogMain")},[l,m]),x=e.useCallback(()=>{D(),c("closeDialogSub")},[c,D]),P=e.useCallback(()=>{h(),u("closeDialogAbort")},[u,h]);return v.jsx(F,{portalTargetId:a,className:r,ref:i,isOpen:o,shouldFocusTrap:k,initialFocus:S,handleShowDialog:y,handleCloseDialogMain:T,handleCloseDialogSub:x,handleClickAway:P})},N=`const DialogExample: FC = () => {
+import{j as F,D as A}from"./Dialog.example-30ed56f3.js";import{r as e}from"./index-6bd1afc7.js";import"./_commonjsHelpers-de833af9.js";import"./index-9d475cdf.js";const m={main:"main",sub:"sub",abort:"abort"},M=()=>{const i=e.useRef(null),n=e.useRef(new Promise(s=>{s("abort")})),o=e.useRef(()=>()=>{}),[l,r]=e.useState(!1),c=e.useCallback(()=>{var s,a;return(s=o.current)==null||s.call(o,"abort"),r(!0),(a=i.current)==null||a.showModal(),n.current=new Promise(g=>{o.current=g}),n.current},[]),u=e.useCallback(()=>{var s,a;r(!1),(s=i.current)==null||s.close(),(a=o.current)==null||a.call(o,"main")},[]),p=e.useCallback(()=>{var s,a;r(!1),(s=i.current)==null||s.close(),(a=o.current)==null||a.call(o,"sub")},[]),t=e.useCallback(()=>{var s,a;r(!1),(s=i.current)==null||s.close(),(a=o.current)==null||a.call(o,"abort")},[]);return e.useEffect(()=>()=>t(),[t]),{ref:i,isOpen:l,showDialog:c,closeDialogMain:u,closeDialogSub:p,closeDialogAbort:t}},N=({portalTargetId:i,className:n,shouldFocusTrap:o,initialFocus:l,actionShowDialog:r,actionCloseDialogMain:c,actionCloseDialogSub:u,actionClickAbort:p})=>{const{ref:t,isOpen:s,showDialog:a,closeDialogMain:g,closeDialogSub:D,closeDialogAbort:h}=M(),k=e.useMemo(()=>{if(!o)return!1},[o]),y=e.useMemo(()=>{if(!l)return!1},[l]),T=e.useCallback(async()=>{const S=await a();let b="no dialog response";switch(S){case m.main:b="promise dialog response: main";break;case m.sub:b="promise dialog response: sub";break;case m.abort:b="promise dialog response: abort";break}r(b)},[r,a]),x=e.useCallback(()=>{g(),c("closeDialogMain")},[c,g]),P=e.useCallback(()=>{D(),u("closeDialogSub")},[u,D]),R=e.useCallback(()=>{h(),p("closeDialogAbort")},[p,h]);return F.jsx(A,{portalTargetId:i,className:n,ref:t,isOpen:s,shouldFocusTrap:k,initialFocus:y,handleShowDialog:T,handleCloseDialogMain:x,handleCloseDialogSub:P,handleClickAway:R})},E=`const DialogExample: FC = () => {
     const {
       ref,
       isOpen,
@@ -54,7 +54,7 @@ import{j as v,D as F}from"./DialogExampleBase-eea1d673.js";import{r as e}from"./
         </>
     );
   };
-`,j={title:"components/Dialog/Promise",component:M,parameters:{layout:"centered",docs:{source:{code:N}}},tags:["autodocs"],argTypes:{portalTargetId:{control:"text",description:`Dialog Component Props<br>
+`,j={title:"components/Dialog/Promise",component:N,parameters:{layout:"centered",docs:{source:{code:E}}},tags:["autodocs"],argTypes:{portalTargetId:{control:"text",description:`Dialog Component Props<br>
         This is createPortal\`s target element id.<br>
         not required<br>
         default: "root-modal"`},className:{control:"text",description:`Dialog Component Props<br>
@@ -84,10 +84,10 @@ import{j as v,D as F}from"./DialogExampleBase-eea1d673.js";import{r as e}from"./
   `},actionClickAbort:{action:"actionClickAbort",description:`**Not Dialog Component Props**<br>
     This is props for use in storybook.<br>
     See 'show code' for actual usage in this page.
-  `}}},b={args:{shouldFocusTrap:!0,initialFocus:!0}};var f,C,w;b.parameters={...b.parameters,docs:{...(f=b.parameters)==null?void 0:f.docs,source:{originalSource:`{
+  `}}},d={args:{shouldFocusTrap:!0,initialFocus:!0}};var f,C,w;d.parameters={...d.parameters,docs:{...(f=d.parameters)==null?void 0:f.docs,source:{originalSource:`{
   args: {
     shouldFocusTrap: true,
     initialFocus: true
   }
-}`,...(w=(C=b.parameters)==null?void 0:C.docs)==null?void 0:w.source}}};const _=["Dialog"];export{b as Dialog,_ as __namedExportsOrder,j as default};
-//# sourceMappingURL=DialogPromise.stories-502e04b6.js.map
+}`,...(w=(C=d.parameters)==null?void 0:C.docs)==null?void 0:w.source}}};const _=["Dialog"];export{d as Dialog,_ as __namedExportsOrder,j as default};
+//# sourceMappingURL=DialogPromise.stories-ce438f00.js.map
