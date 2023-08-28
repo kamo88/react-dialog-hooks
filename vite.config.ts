@@ -20,11 +20,12 @@ export default defineConfig(({ mode }) => ({
       formats: ['es', 'umd'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react/jsx-runtime', 'react-dom'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'react-dom',
+          'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'ReactJsxRuntime',
         },
       },
     },
