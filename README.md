@@ -4,14 +4,14 @@
 [![package-publish-to-npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
 
 ```
-npm i @kamo88/react-dialog
+npm i @kamo88/react-dialog-hooks
 ```
 
 # @kamo88/react-dialog
 
 This React component & hooks are to be displayed using the \<dialog\> tag.
 
-[storybook](https://kamo88.github.io/react-dialog/)
+[storybook](https://kamo88.github.io/react-dialog-hooks/)
 
 ## Description
 
@@ -31,7 +31,7 @@ Normal usage.
 <summary>example</summary>
 
 ```tsx
-import { Dialog, useDialog } from '@kamo88/react-dialog';
+import { Dialog, useDialog } from '@kamo88/react-dialog-hooks';
 
 const ShowDialogComponent = () => {
   const { ref, isOpen, showDialog, closeDialog } = useDialog();
@@ -72,7 +72,11 @@ Wait for user operation in a Promise and handle it with its return ('main', 'sub
 
 ```tsx
 import { useCallback } from 'react';
-import { Dialog, useDialogPromise, DialogResponse } from '@kamo88/react-dialog';
+import {
+  Dialog,
+  useDialogPromise,
+  DialogResponse,
+} from '@kamo88/react-dialog-hooks';
 
 const ShowPromiseDialogComponent = () => {
   const {
