@@ -1,4 +1,4 @@
-import { expect, test, describe, beforeAll, vi } from 'vitest';
+import { expect, test, describe, beforeAll, vi, afterAll } from 'vitest';
 import { render } from '@testing-library/react';
 import { FC, useMemo } from 'react';
 import { DialogExample as DialogExampleBase } from './Dialog.example';
@@ -43,20 +43,26 @@ const DialogTest: FC<DialogTestProps> = ({
   );
 };
 
+const showOrigin: typeof HTMLDialogElement.prototype.show =
+  HTMLDialogElement.prototype.show;
+const showModalOrigin: typeof HTMLDialogElement.prototype.showModal =
+  HTMLDialogElement.prototype.showModal;
+const closeOrigin: typeof HTMLDialogElement.prototype.close =
+  HTMLDialogElement.prototype.close;
+
 beforeAll(() => {
   HTMLDialogElement.prototype.show = vi.fn();
   HTMLDialogElement.prototype.showModal = vi.fn();
   HTMLDialogElement.prototype.close = vi.fn();
 });
 
-describe('components/Dialog', () => {
-  const modalPortalArea1 = document.createElement('div');
-  modalPortalArea1.id = 'root-modal';
-  document.body.appendChild(modalPortalArea1);
+afterAll(() => {
+  HTMLDialogElement.prototype.show = showOrigin;
+  HTMLDialogElement.prototype.showModal = showModalOrigin;
+  HTMLDialogElement.prototype.close = closeOrigin;
+});
 
-  const modalPortalArea2 = document.createElement('div');
-  modalPortalArea2.id = 'root-modal-01';
-  document.body.appendChild(modalPortalArea2);
+describe('components/Dialog', () => {
   render(<DialogTest />);
 
   test('no dialog', () => {

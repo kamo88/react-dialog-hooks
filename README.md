@@ -1,5 +1,4 @@
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![npm version](https://badge.fury.io/js/@kamo88%2Freact-dialog.svg?v=0.9.4)](https://badge.fury.io/js/@kamo88%2Freact-dialog)
 [![pages-build-deployment](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment)
 [![package-publish-to-npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
 
@@ -15,16 +14,18 @@ This React component & hooks are to be displayed using the \<dialog\> tag.
 
 ## Description
 
-1. Stop body scrolling when displaying dialogs using [react-use/useLockBodyScroll](https://github.com/streamich/react-use/blob/master/docs/useLockBodyScroll.md).
-2. Loop the focus only within the content in the dialog using [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme).
-3. As we are using createPotal functionality of react-dom, please set portalTargetId ("root-modal" by default) in the props of the Dialog component.
-4. Set the style of the dialog backdrop using the className of the props. ex) [tailwindcss](https://tailwindcss.com/) , css modules ([@emotion/react](https://www.npmjs.com/package/@emotion/react) is also available)
+1. Hooks for using the dialog tag.
+2. Dialog Component uses [react-use/useLockBodyScroll](https://github.com/streamich/react-use/blob/master/docs/useLockBodyScroll.md) to scroll the body and stop.
+3. Dialog Component loops focus to a focusable element in the content using [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme).
+4. Dialog Component can be styled using className. ex) [tailwindcss](https://tailwindcss.com/) , css modules ([@emotion/react](https://www.npmjs.com/package/@emotion/react) is also available)
 
 ## Usage
 
 ### useDialog
 
 Normal usage.
+
+Of course, you can also create markup using regular dialog tags.
 
 <details>
 
@@ -133,15 +134,16 @@ const ShowPromiseDialogComponent = () => {
 
 </details>
 
-## Dialog Props
+## Dialog Component Props
 
-| key             | type                                 | required | default    | description                                                                                                                                             |
-| --------------- | ------------------------------------ | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ref             | React.RefObject\<HTMLDialogElement\> | ⭕       |            | dialog ref                                                                                                                                              |
-| portalTargetId  | string                               |          | root-modal | ReactDom.createPortal\`s target element id                                                                                                              |
-| children        | ReactNode                            | ⭕       |            | dialog contents                                                                                                                                         |
-| isOpen          | boolean                              | ⭕       |            | dialog open state                                                                                                                                       |
-| shouldFocusTrap | boolean                              |          | true       |                                                                                                                                                         |
-| initialFocus    | undefined or false                   |          | undefined  | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.                                                |
-| className       | string                               |          |            | This is \<dialog\> element\`s className.<br> Please use CSS framework. ex) tailwindcss. <br> As a side note, you can also use css props (@emotion/css). |
-| onClickAway     | () => void                           |          |            | Event when backdrop in Dialog is clicked.                                                                                                               |
+| key             | type                                 | required | default   | description                                                                                                                                             |
+| --------------- | ------------------------------------ | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ref             | React.RefObject\<HTMLDialogElement\> | ⭕       |           | dialog ref                                                                                                                                              |
+| children        | ReactNode                            | ⭕       |           | dialog contents                                                                                                                                         |
+| isOpen          | boolean                              | ⭕       |           | dialog open state                                                                                                                                       |
+| shouldFocusTrap | boolean                              |          | true      |                                                                                                                                                         |
+| initialFocus    | undefined or false                   |          | undefined | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.                                                |
+| className       | string                               |          |           | This is \<dialog\> element\`s className.<br> Please use CSS framework. ex) tailwindcss. <br> As a side note, you can also use css props (@emotion/css). |
+| onClickAway     | () => void                           |          |           | Event when backdrop in Dialog is clicked.                                                                                                               |
+
+& \<dialog\> element\`s attributes

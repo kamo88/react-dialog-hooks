@@ -1,14 +1,17 @@
-import { ReactNode, forwardRef, memo, useMemo, useRef } from 'react';
-import { createPortal } from 'react-dom';
+import {
+  ReactNode,
+  forwardRef,
+  memo,
+  useMemo,
+  HtmlHTMLAttributes,
+} from 'react';
 import { useLockBodyScroll } from 'react-use';
 import { DialogContainer } from './DialogContainer';
 
-export type Props = {
-  /**
-   * createPortal target element id
-   * default: #root-modal
-   */
-  portalTargetId?: string;
+export type Props = Omit<
+  HtmlHTMLAttributes<HTMLDialogElement>,
+  'className' | 'children'
+> & {
   children: ReactNode;
   isOpen: boolean;
   /**
@@ -24,7 +27,6 @@ export type Props = {
 const DialogBase = forwardRef<HTMLDialogElement, Props>(
   (
     {
-      portalTargetId = 'root-modal',
       children,
       isOpen,
       shouldFocusTrap = true,
@@ -34,8 +36,6 @@ const DialogBase = forwardRef<HTMLDialogElement, Props>(
     },
     ref,
   ) => {
-    const target = useRef(document.getElementById(portalTargetId));
-
     const clickOutsideDeactivates = useMemo(
       () => Boolean(onClickAway),
       [onClickAway],
@@ -43,9 +43,7 @@ const DialogBase = forwardRef<HTMLDialogElement, Props>(
 
     useLockBodyScroll(isOpen);
 
-    if (!target.current) return null;
-
-    return createPortal(
+    return (
       <dialog
         role="presentation"
         ref={ref}
@@ -63,8 +61,7 @@ const DialogBase = forwardRef<HTMLDialogElement, Props>(
         ) : (
           children
         )}
-      </dialog>,
-      target.current,
+      </dialog>
     );
   },
 );

@@ -1,39 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 
+import { Button } from '@/components/Button/Button.example';
+import { clsx } from 'clsx';
 import { useDialog } from '.';
-import { DialogExample as DialogExampleBase } from './Dialog.example';
-import type { Props as DialogExampleBaseProps } from './Dialog.example';
 
-type Props = Pick<DialogExampleBaseProps, 'className'> & {
-  shouldFocusTrap: boolean;
-  initialFocus: boolean;
+type Props = {
   actionShowDialog: (value: unknown) => void;
   actionCloseDialogMain: (value: unknown) => void;
   actionCloseDialogSub: (value: unknown) => void;
   actionClickAbort: (value: unknown) => void;
+  actionIsOpen: (value: unknown) => void;
 };
 
 const DialogExample: FC<Props> = ({
-  className,
-  shouldFocusTrap,
-  initialFocus,
   actionShowDialog,
   actionCloseDialogMain,
   actionCloseDialogSub,
   actionClickAbort,
+  actionIsOpen,
 }) => {
   const { ref, isOpen, showDialog, closeDialog } = useDialog();
 
-  const shouldFocusTrapCal = useMemo(() => {
-    if (shouldFocusTrap) return undefined;
-    return false;
-  }, [shouldFocusTrap]);
-
-  const initialFocusCal = useMemo(() => {
-    if (initialFocus) return undefined;
-    return false;
-  }, [initialFocus]);
+  useEffect(() => {
+    actionIsOpen(`isOpen: ${isOpen}`);
+  }, [isOpen, actionIsOpen]);
 
   const handleShowDialog = useCallback(() => {
     showDialog();
@@ -56,17 +47,40 @@ const DialogExample: FC<Props> = ({
   }, [actionClickAbort, closeDialog]);
 
   return (
-    <DialogExampleBase
-      className={className}
-      ref={ref}
-      isOpen={isOpen}
-      shouldFocusTrap={shouldFocusTrapCal}
-      initialFocus={initialFocusCal}
-      handleShowDialog={handleShowDialog}
-      handleCloseDialogMain={handleCloseDialogMain}
-      handleCloseDialogSub={handleCloseDialogSub}
-      handleClickAway={handleCloseDialogAway}
-    />
+    <div>
+      <Button onClick={handleShowDialog}>showDialog!!!!</Button>
+      <dialog
+        role="presentation"
+        className={clsx('backdrop:bg-gray-900 backdrop:opacity-80')}
+        ref={ref}
+        onClick={handleCloseDialogAway}
+      >
+        <div
+          className={clsx(
+            'h-80 w-96 p-2',
+            'flex flex-col justify-between',
+            'divide-y divide-solid',
+          )}
+        >
+          <div className={clsx('flex-initial', 'h-8')}>header</div>
+          <div className={clsx('flex-auto', 'overflow-y-scroll')}>
+            <div className={clsx('h-[500px]')}>main</div>
+          </div>
+          <div
+            className={clsx(
+              'flex-initial',
+              'h-max pt-2',
+              'flex items-center justify-between',
+            )}
+          >
+            <Button onClick={handleCloseDialogMain}>
+              closeDialog main!!!!
+            </Button>
+            <Button onClick={handleCloseDialogSub}>closeDialog sub!!!!</Button>
+          </div>
+        </div>
+      </dialog>
+    </div>
   );
 };
 
@@ -75,32 +89,32 @@ const code = `const DialogExample: FC = () => {
   
     return (
         <>
-            <button type="button" onClick={showDialog}>showDialog</button>
-            <Dialog
-                className="backdrop:bg-gray-900 backdrop:opacity-80"
-                ref={ref}
-                isOpen={isOpen}
-                className="dialogClass"
-                shouldFocusTrap
-                initialFocus={false}
-                onClickAway={closeDialog}
-            >
-                <div>
-                    <div>header</div>
-                    <div>main</div>
-                    <div>
-                        footer 
-                        <button type="button" onClick={closeDialog}>closeDialog</button>
-                    </div>
-                </div>
-            </Dialog>
+          <p>dialog {isOpen ? 'open' : 'close'}</p>
+          <button type="button" onClick={showDialog}>showDialog</button>
+          <dialog
+            role="presentation"
+            ref={ref}
+            onClick={closeDialog}
+          >
+            <div>
+              <div>header</div>
+              <div>main</div>
+              <div>
+                footer
+                <Button onClick={closeDialog}>
+                  closeDialog main!!!!
+                </Button>
+                <Button onClick={closeDialog}>closeDialog sub!!!!</Button>
+              </div>
+            </div>
+          </dialog>
         </>
     );
   };
 `;
 
 const meta = {
-  title: 'components/Dialog/useDialog',
+  title: 'pure dialog',
   component: DialogExample,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -114,33 +128,6 @@ const meta = {
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    className: {
-      control: 'text',
-      description: `Dialog Component Props<br>
-    This is <dialog> element\`s className.
-    Please use CSS framework. code ex) tailwindcss.<br>
-    not required<br>
-    As a side note, you can also use css props (@emotion/css).
-    `,
-    },
-    shouldFocusTrap: {
-      control: 'boolean',
-      description: `**Dialog Component Props**<br>
-    not required<br>
-    This will be props whether to use focus-trap or not.<br>
-    When using this function, please put focusable elements in the children.<br>
-    default: true
-    `,
-    },
-    initialFocus: {
-      control: 'boolean',
-      description: `**Dialog Component Props**<br>
-    not required<br>
-    This is based on the focus-trap property.<br>
-    type: undefined | false<br>
-    default: undefined ≒ auto focus
-    `,
-    },
     actionShowDialog: {
       action: 'actionShowDialog',
       description: `**Not Dialog Component Props**<br>
@@ -169,6 +156,14 @@ const meta = {
     See 'show code' for actual usage in this page.
   `,
     },
+    actionIsOpen: {
+      action: 'actionIsOpen',
+      description: `**Not Dialog Component Props**<br>
+    This is props for use in storybook.<br>
+    Check isOpen state.<br>
+    See 'show code' for actual usage in this page.
+  `,
+    },
   },
 } satisfies Meta<typeof DialogExample>;
 
@@ -176,9 +171,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Dialog: Story = {
-  args: {
-    shouldFocusTrap: true,
-    initialFocus: true,
-  },
-};
+export const Dialog: Story = {};
