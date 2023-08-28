@@ -1,3 +1,4 @@
+import { noop } from '@/utils/noop';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const DialogResponse = {
@@ -19,9 +20,7 @@ export const useDialogPromise = () => {
   );
 
   const resolveState = useRef<((value: DialogResponseState) => void) | null>(
-    () => () => {
-      // noop
-    },
+    () => noop,
   );
 
   const [isOpen, setIsOpen] = useState(false);

@@ -57,5 +57,9 @@ export default defineConfig(({ mode }) => ({
   ],
   test: {
     environment: 'jsdom',
+    coverage: {
+      exclude: ['src/**/*.example.*'],
+      include: ['src/components/Dialog', 'src/utils/noop.ts'],
+    },
   },
 }));
