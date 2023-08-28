@@ -100,7 +100,7 @@ const code = `const DialogExample: FC = () => {
 `;
 
 const meta = {
-  title: 'components/Dialog/Default',
+  title: 'components/Dialog/useDialog',
   component: DialogExample,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout

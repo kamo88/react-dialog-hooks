@@ -89,32 +89,32 @@ const code = `const DialogExample: FC = () => {
   
     return (
         <>
-            <button type="button" onClick={showDialog}>showDialog</button>
-            <Dialog
-                className="backdrop:bg-gray-900 backdrop:opacity-80"
-                ref={ref}
-                isOpen={isOpen}
-                className="dialogClass"
-                shouldFocusTrap
-                initialFocus={false}
-                onClickAway={closeDialog}
-            >
-                <div>
-                    <div>header</div>
-                    <div>main</div>
-                    <div>
-                        footer 
-                        <button type="button" onClick={closeDialog}>closeDialog</button>
-                    </div>
-                </div>
-            </Dialog>
+          <p>dialog {isOpen ? 'open' : 'close'}</p>
+          <button type="button" onClick={showDialog}>showDialog</button>
+          <dialog
+            role="presentation"
+            ref={ref}
+            onClick={closeDialog}
+          >
+            <div>
+              <div>header</div>
+              <div>main</div>
+              <div>
+                footer
+                <Button onClick={closeDialog}>
+                  closeDialog main!!!!
+                </Button>
+                <Button onClick={closeDialog}>closeDialog sub!!!!</Button>
+              </div>
+            </div>
+          </dialog>
         </>
     );
   };
 `;
 
 const meta = {
-  title: 'components/Dialog/Pure',
+  title: 'pure dialog',
   component: DialogExample,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
