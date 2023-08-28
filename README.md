@@ -1,5 +1,4 @@
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![npm version](https://badge.fury.io/js/@kamo88%2Freact-dialog.svg?v=0.9.4)](https://badge.fury.io/js/@kamo88%2Freact-dialog)
 [![pages-build-deployment](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment)
 [![package-publish-to-npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
 
@@ -135,13 +134,12 @@ const ShowPromiseDialogComponent = () => {
 
 ## Dialog Props
 
-| key             | type                                 | required | default    | description                                                                                                                                             |
-| --------------- | ------------------------------------ | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ref             | React.RefObject\<HTMLDialogElement\> | ⭕       |            | dialog ref                                                                                                                                              |
-| portalTargetId  | string                               |          | root-modal | ReactDom.createPortal\`s target element id                                                                                                              |
-| children        | ReactNode                            | ⭕       |            | dialog contents                                                                                                                                         |
-| isOpen          | boolean                              | ⭕       |            | dialog open state                                                                                                                                       |
-| shouldFocusTrap | boolean                              |          | true       |                                                                                                                                                         |
-| initialFocus    | undefined or false                   |          | undefined  | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.                                                |
-| className       | string                               |          |            | This is \<dialog\> element\`s className.<br> Please use CSS framework. ex) tailwindcss. <br> As a side note, you can also use css props (@emotion/css). |
-| onClickAway     | () => void                           |          |            | Event when backdrop in Dialog is clicked.                                                                                                               |
+| key             | type                                 | required | default   | description                                                                                                                                             |
+| --------------- | ------------------------------------ | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ref             | React.RefObject\<HTMLDialogElement\> | ⭕       |           | dialog ref                                                                                                                                              |
+| children        | ReactNode                            | ⭕       |           | dialog contents                                                                                                                                         |
+| isOpen          | boolean                              | ⭕       |           | dialog open state                                                                                                                                       |
+| shouldFocusTrap | boolean                              |          | true      |                                                                                                                                                         |
+| initialFocus    | undefined or false                   |          | undefined | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.                                                |
+| className       | string                               |          |           | This is \<dialog\> element\`s className.<br> Please use CSS framework. ex) tailwindcss. <br> As a side note, you can also use css props (@emotion/css). |
+| onClickAway     | () => void                           |          |           | Event when backdrop in Dialog is clicked.                                                                                                               |

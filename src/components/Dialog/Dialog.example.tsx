@@ -4,7 +4,6 @@ import { Button } from '@/components/Button/Button.example';
 import { Dialog } from '.';
 
 export type Props = {
-  portalTargetId?: string;
   isOpen: boolean;
   className?: string;
   shouldFocusTrap: boolean | undefined;
@@ -18,7 +17,6 @@ export type Props = {
 export const DialogExample = forwardRef<HTMLDialogElement, Props>(
   (
     {
-      portalTargetId,
       isOpen,
       className,
       shouldFocusTrap,
@@ -33,7 +31,6 @@ export const DialogExample = forwardRef<HTMLDialogElement, Props>(
     <div>
       <Button onClick={handleShowDialog}>showDialog!!!!</Button>
       <Dialog
-        portalTargetId={portalTargetId}
         className={clsx('backdrop:bg-gray-900 backdrop:opacity-80', className)}
         shouldFocusTrap={shouldFocusTrap}
         initialFocus={initialFocus}

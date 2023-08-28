@@ -5,7 +5,7 @@ import { useDialog } from '.';
 import { DialogExample as DialogExampleBase } from './Dialog.example';
 import type { Props as DialogExampleBaseProps } from './Dialog.example';
 
-type Props = Pick<DialogExampleBaseProps, 'portalTargetId' | 'className'> & {
+type Props = Pick<DialogExampleBaseProps, 'className'> & {
   shouldFocusTrap: boolean;
   initialFocus: boolean;
   actionShowDialog: (value: unknown) => void;
@@ -15,7 +15,6 @@ type Props = Pick<DialogExampleBaseProps, 'portalTargetId' | 'className'> & {
 };
 
 const DialogExample: FC<Props> = ({
-  portalTargetId,
   className,
   shouldFocusTrap,
   initialFocus,
@@ -58,7 +57,6 @@ const DialogExample: FC<Props> = ({
 
   return (
     <DialogExampleBase
-      portalTargetId={portalTargetId}
       className={className}
       ref={ref}
       isOpen={isOpen}
@@ -79,7 +77,6 @@ const code = `const DialogExample: FC = () => {
         <>
             <button type="button" onClick={showDialog}>showDialog</button>
             <Dialog
-                portalTargetId={portalTargetId}
                 className="backdrop:bg-gray-900 backdrop:opacity-80"
                 ref={ref}
                 isOpen={isOpen}
@@ -117,13 +114,6 @@ const meta = {
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    portalTargetId: {
-      control: 'text',
-      description: `Dialog Component Props<br>
-        This is createPortal\`s target element id.<br>
-        not required<br>
-        default: "root-modal"`,
-    },
     className: {
       control: 'text',
       description: `Dialog Component Props<br>
