@@ -1,4 +1,4 @@
-import{j as y}from"./Dialog-b006cbce.js";import{r as s}from"./index-61bf1805.js";import{u as T}from"./useDialog-6a2956c7.js";import{D as x}from"./Dialog.example-8ed32d47.js";import"./_commonjsHelpers-de833af9.js";import"./index-9d475cdf.js";const F=({className:g,shouldFocusTrap:a,initialFocus:i,actionShowDialog:t,actionCloseDialogMain:r,actionCloseDialogSub:n,actionClickAbort:l})=>{const{ref:b,isOpen:m,showDialog:c,closeDialog:o}=T(),h=s.useMemo(()=>{if(!a)return!1},[a]),D=s.useMemo(()=>{if(!i)return!1},[i]),f=s.useCallback(()=>{c(),t("showDialog")},[t,c]),C=s.useCallback(()=>{o(),r("closeDialog")},[r,o]),w=s.useCallback(()=>{o(),n("closeDialog")},[n,o]),k=s.useCallback(()=>{o(),l("closeDialog")},[l,o]);return y.jsx(x,{className:g,ref:b,isOpen:m,shouldFocusTrap:h,initialFocus:D,handleShowDialog:f,handleCloseDialogMain:C,handleCloseDialogSub:w,handleClickAway:k})},S=`const DialogExample: FC = () => {
+import{j as y}from"./Dialog-b006cbce.js";import{r as s}from"./index-61bf1805.js";import{u as T}from"./useDialog-6a2956c7.js";import{D as x}from"./Dialog.example-65a78a81.js";import"./_commonjsHelpers-de833af9.js";import"./index-9d475cdf.js";const F=({className:g,shouldFocusTrap:a,initialFocus:i,actionShowDialog:t,actionCloseDialogMain:r,actionCloseDialogSub:n,actionClickAbort:l})=>{const{ref:b,isOpen:m,showDialog:c,closeDialog:o}=T(),h=s.useMemo(()=>{if(!a)return!1},[a]),D=s.useMemo(()=>{if(!i)return!1},[i]),f=s.useCallback(()=>{c(),t("showDialog")},[t,c]),C=s.useCallback(()=>{o(),r("closeDialog")},[r,o]),w=s.useCallback(()=>{o(),n("closeDialog")},[n,o]),k=s.useCallback(()=>{o(),l("closeDialog")},[l,o]);return y.jsx(x,{className:g,ref:b,isOpen:m,shouldFocusTrap:h,initialFocus:D,handleShowDialog:f,handleCloseDialogMain:C,handleCloseDialogSub:w,handleClickAway:k})},S=`const DialogExample: FC = () => {
     const { ref, isOpen, showDialog, closeDialog } = useDialog();
   
     return (
@@ -58,4 +58,4 @@ import{j as y}from"./Dialog-b006cbce.js";import{r as s}from"./index-61bf1805.js"
     initialFocus: true
   }
 }`,...(d=(p=e.parameters)==null?void 0:p.docs)==null?void 0:d.source}}};const j=["Dialog"];export{e as Dialog,j as __namedExportsOrder,M as default};
-//# sourceMappingURL=Dialog.stories-72e580f3.js.map
+//# sourceMappingURL=Dialog.stories-a3b58be5.js.map
