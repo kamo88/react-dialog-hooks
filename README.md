@@ -1,4 +1,5 @@
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+![NPM](https://img.shields.io/npm/l/%40kamo88%2Freact-dialog-hooks)
+![npm (scoped)](https://img.shields.io/npm/v/%40kamo88/react-dialog-hooks)
 [![pages-build-deployment](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment)
 [![package-publish-to-npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
 
@@ -6,7 +7,7 @@
 npm i @kamo88/react-dialog-hooks
 ```
 
-# @kamo88/react-dialog
+# @kamo88/react-dialog-hooks
 
 This React component & hooks are to be displayed using the \<dialog\> tag.
 
