@@ -1,0 +1,2 @@
+import{r as e}from"./index-61bf1805.js";const l=()=>{const t=e.useRef(null),[c,n]=e.useState(!1),r=e.useRef(!1),o=e.useCallback(()=>{var s;r.current||(r.current=!0,n(!0),(s=t.current)==null||s.showModal())},[]),u=e.useCallback(()=>{var s;r.current&&(r.current=!1,n(!1),(s=t.current)==null||s.close())},[]);return e.useEffect(()=>()=>u(),[u]),{ref:t,isOpen:c,showDialog:o,closeDialog:u}};export{l as u};
+//# sourceMappingURL=useDialog-6a2956c7.js.map
