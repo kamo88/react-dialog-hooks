@@ -145,3 +145,5 @@ const ShowPromiseDialogComponent = () => {
 | initialFocus    | undefined or false                   |          | undefined | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.                                                |
 | className       | string                               |          |           | This is \<dialog\> element\`s className.<br> Please use CSS framework. ex) tailwindcss. <br> As a side note, you can also use css props (@emotion/css). |
 | onClickAway     | () => void                           |          |           | Event when backdrop in Dialog is clicked.                                                                                                               |
+
+& \<dialog\> element\`s attributes
