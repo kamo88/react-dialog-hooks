@@ -14,16 +14,18 @@ This React component & hooks are to be displayed using the \<dialog\> tag.
 
 ## Description
 
-1. Stop body scrolling when displaying dialogs using [react-use/useLockBodyScroll](https://github.com/streamich/react-use/blob/master/docs/useLockBodyScroll.md).
-2. Loop the focus only within the content in the dialog using [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme).
-3. As we are using createPotal functionality of react-dom, please set portalTargetId ("root-modal" by default) in the props of the Dialog component.
-4. Set the style of the dialog backdrop using the className of the props. ex) [tailwindcss](https://tailwindcss.com/) , css modules ([@emotion/react](https://www.npmjs.com/package/@emotion/react) is also available)
+1. Hooks for using the dialog tag.
+2. Dialog Component uses [react-use/useLockBodyScroll](https://github.com/streamich/react-use/blob/master/docs/useLockBodyScroll.md) to scroll the body and stop.
+3. Dialog Component loops focus to a focusable element in the content using [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme).
+4. Dialog Component can be styled using className. ex) [tailwindcss](https://tailwindcss.com/) , css modules ([@emotion/react](https://www.npmjs.com/package/@emotion/react) is also available)
 
 ## Usage
 
 ### useDialog
 
 Normal usage.
+
+Of course, you can also create markup using regular dialog tags.
 
 <details>
 
@@ -132,7 +134,7 @@ const ShowPromiseDialogComponent = () => {
 
 </details>
 
-## Dialog Props
+## Dialog Component Props
 
 | key             | type                                 | required | default   | description                                                                                                                                             |
 | --------------- | ------------------------------------ | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
