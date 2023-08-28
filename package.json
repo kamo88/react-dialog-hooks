@@ -1,7 +1,8 @@
 {
-  "name": "@kamo88/react-dialog",
-  "version": "0.9.4",
+  "name": "@kamo88/react-dialog-hooks",
+  "version": "0.0.1",
   "type": "module",
+  "description": "react use dialog hooks & dialog component",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
@@ -79,21 +80,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/kamo88/react-dialog.git"
+    "url": "git+ssh://git@github.com/kamo88/react-dialog-hooks.git"
   },
   "keywords": [
     "react",
     "react-component",
     "react-use",
     "focus-trap-react",
-    "focus-trap"
+    "focus-trap",
+    "dialog",
+    "modal",
+    "react-dialog",
+    "react-modal",
+    "hooks",
+    "react-hooks"
   ],
   "author": "kamo88 (https://github.com/kamo88)",
-  "license": "ISC",
+  "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/kamo88/react-dialog/issues"
+    "url": "https://github.com/kamo88/react-dialog-hooks/issues"
   },
-  "homepage": "https://github.com/kamo88/react-dialog#readme",
+  "homepage": "https://github.com/kamo88/react-dialog-hooks#readme",
   "volta": {
     "node": "18.17.0"
   },
