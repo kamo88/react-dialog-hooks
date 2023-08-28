@@ -28,6 +28,7 @@ export const DialogExample = forwardRef<HTMLDialogElement, Props>(
       handleCloseDialogMain,
       handleCloseDialogSub,
       handleClickAway,
+      ...dialogProps
     },
     ref,
   ) => (
@@ -40,6 +41,7 @@ export const DialogExample = forwardRef<HTMLDialogElement, Props>(
         ref={ref}
         isOpen={isOpen}
         onClickAway={handleClickAway}
+        {...dialogProps}
       >
         <div
           className={clsx(
