@@ -1,8 +1,17 @@
-import { ReactNode, forwardRef, memo, useMemo } from 'react';
+import {
+  ReactNode,
+  forwardRef,
+  memo,
+  useMemo,
+  HtmlHTMLAttributes,
+} from 'react';
 import { useLockBodyScroll } from 'react-use';
 import { DialogContainer } from './DialogContainer';
 
-export type Props = {
+export type Props = Omit<
+  HtmlHTMLAttributes<HTMLDialogElement>,
+  'className' | 'children'
+> & {
   children: ReactNode;
   isOpen: boolean;
   /**

@@ -1,9 +1,12 @@
 import { forwardRef } from 'react';
 import { clsx } from 'clsx';
 import { Button } from '@/components/Button/Button.example';
-import { Dialog } from '.';
+import { Dialog, Props as DialogProps } from '.';
 
-export type Props = {
+export type Props = Omit<
+  DialogProps,
+  'children' | 'shouldFocusTrap' | 'initialFocus' | 'onClickAway'
+> & {
   isOpen: boolean;
   className?: string;
   shouldFocusTrap: boolean | undefined;
