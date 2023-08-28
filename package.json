@@ -2,6 +2,7 @@
   "name": "@kamo88/react-dialog-hooks",
   "version": "0.0.1",
   "type": "module",
+  "description": "react use dialog hooks & dialog component",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
@@ -86,7 +87,13 @@
     "react-component",
     "react-use",
     "focus-trap-react",
-    "focus-trap"
+    "focus-trap",
+    "dialog",
+    "modal",
+    "react-dialog",
+    "react-modal",
+    "hooks",
+    "react-hooks"
   ],
   "author": "kamo88 (https://github.com/kamo88)",
   "license": "Unlicense",
