@@ -107,7 +107,7 @@ const handleCloseDialogSub = vi.fn();
 const handleClickAway = vi.fn();
 
 describe('components/Dialog', () => {
-  render(
+  const { rerender } = render(
     <DialogTest
       data-testid="test-dialog"
       shouldFocusTrap
@@ -162,5 +162,21 @@ describe('components/Dialog', () => {
     fireEvent.click(dialog);
     expect(handleClickAway).toBeCalledTimes(1);
     expect(dialog.open).toBe(false);
+  });
+
+  test('shouldFocusTrap: false (focus-trap-react is mock)', () => {
+    rerender(
+      <DialogTest
+        data-testid="test-dialog"
+        shouldFocusTrap={false}
+        initialFocus={false}
+        handleCloseDialogMain={handleCloseDialogMain}
+        handleCloseDialogSub={handleCloseDialogSub}
+        handleClickAway={handleClickAway}
+      />,
+    );
+
+    const dialog = screen.getByTestId<HTMLDialogElement>('test-dialog');
+    expect(dialog.children).toHaveLength(1);
   });
 });
