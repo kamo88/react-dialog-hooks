@@ -89,11 +89,14 @@ const DialogExample: FC<Props> = ({
   );
 };
 
-const code = `const DialogExample: FC = () => {
+const code = `import { Dialog, useDialog } from '@kamo88/react-dialog-hooks';
+
+const DialogExample = () => {
+
     const { ref, isOpen, showDialog, closeDialog } = useDialog();
   
     return (
-        <>
+        <div>
             <button type="button" onClick={showDialog}>showDialog</button>
             <Dialog
                 className="backdrop:bg-gray-900 backdrop:opacity-80"
@@ -114,7 +117,7 @@ const code = `const DialogExample: FC = () => {
                     </div>
                 </div>
             </Dialog>
-        </>
+        </div>
     );
   };
 `;

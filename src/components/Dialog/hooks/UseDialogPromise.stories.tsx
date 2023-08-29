@@ -101,7 +101,8 @@ const DialogExample: FC<Props> = ({
 
 const code = `import { useDialogPromise, DialogResponse } from '@kamo88/react-dialog-hooks';
 
-const DialogExample: FC = () => {
+const DialogExample = () => {
+  
     const {
       ref,
       isOpen,
