@@ -1,6 +1,6 @@
 {
   "name": "@kamo88/react-dialog-hooks",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "react use dialog hooks & dialog component",
   "main": "./dist/index.umd.cjs",
