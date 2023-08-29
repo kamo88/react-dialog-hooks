@@ -10,7 +10,7 @@ import { DialogContainer } from './DialogContainer';
 
 export type Props = Omit<
   HtmlHTMLAttributes<HTMLDialogElement>,
-  'className' | 'children'
+  'children' | 'onClick'
 > & {
   children: ReactNode;
   isOpen: boolean;
@@ -21,7 +21,6 @@ export type Props = Omit<
   shouldFocusTrap?: boolean;
   onClickAway?: () => void;
   initialFocus?: false;
-  className?: string;
 };
 
 const DialogBase = forwardRef<HTMLDialogElement, Props>(

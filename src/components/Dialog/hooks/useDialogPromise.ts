@@ -53,7 +53,15 @@ export const useDialogPromise = () => {
     resolveState.current?.('abort');
   }, []);
 
-  useEffect(() => () => closeDialogAbort(), [closeDialogAbort]);
+  useEffect(() => {
+    const dialogRef = ref.current;
+
+    return () => {
+      setIsOpen(false);
+      dialogRef?.close();
+      resolveState.current?.('abort');
+    };
+  }, []);
 
   return {
     ref,
