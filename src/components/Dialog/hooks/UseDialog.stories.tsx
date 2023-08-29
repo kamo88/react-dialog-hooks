@@ -47,6 +47,8 @@ const DialogExample: FC<Props> = ({
             'flex flex-col justify-between',
             'divide-y divide-solid',
           )}
+          role="presentation"
+          onClick={(e) => e.stopPropagation()}
         >
           <div className={clsx('flex-initial', 'h-8')}>header</div>
           <div className={clsx('flex-auto', 'overflow-y-scroll')}>
@@ -64,7 +66,7 @@ const DialogExample: FC<Props> = ({
 const code = `import { useDialog } from '@kamo88/react-dialog-hooks';
 
 const DialogExample = () => {
-  
+
     const { ref, isOpen, showDialog, closeDialog } = useDialog();
 
     return (
@@ -75,7 +77,7 @@ const DialogExample = () => {
               ref={ref}
               onClick={closeDialog}
             >
-                <div>
+                <div role="presentation" onClick={(e) => e.stopPropagation()}>
                     <div>header</div>
                     <div>main</div>
                     <div>
