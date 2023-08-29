@@ -12,10 +12,15 @@ export default defineConfig(({ mode }) => ({
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(
+      mode === 'analyze' ? 'production' : mode,
+    ),
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: '@kamo88-dialog',
+      name: 'Kamo88Dialog',
       fileName: 'index',
       formats: ['es', 'umd'],
     },
