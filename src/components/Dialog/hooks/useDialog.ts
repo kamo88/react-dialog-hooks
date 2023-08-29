@@ -5,23 +5,25 @@ export const useDialog = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const isOpenRef = useRef(false);
-
   const showDialog = useCallback(() => {
-    if (isOpenRef.current) return;
-    isOpenRef.current = true;
+    if (ref.current?.open) return;
     setIsOpen(true);
     ref.current?.showModal();
   }, []);
 
   const closeDialog = useCallback(() => {
-    if (!isOpenRef.current) return;
-    isOpenRef.current = false;
+    if (!ref.current?.open) return;
     setIsOpen(false);
     ref.current?.close();
   }, []);
 
-  useEffect(() => () => closeDialog(), [closeDialog]);
+  useEffect(() => {
+    const dialogRef = ref.current;
+    return () => {
+      setIsOpen(false);
+      dialogRef?.close();
+    };
+  }, []);
 
   return {
     ref,
