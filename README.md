@@ -33,18 +33,18 @@ Of course, you can also create markup using regular dialog tags.
 <summary>example</summary>
 
 ```tsx
-import { Dialog, useDialog } from '@kamo88/react-dialog-hooks';
+import { useDialog } from '@kamo88/react-dialog-hooks';
 
-const ShowDialogComponent = () => {
+const UseDialogExample = () => {
   const { ref, isOpen, showDialog, closeDialog } = useDialog();
 
   return (
-    <>
+    <div>
       <button type="button" onClick={showDialog}>
         showDialog
       </button>
-      <Dialog ref={ref} isOpen={isOpen} onClickAway={closeDialog}>
-        <div>
+      <dialog role="presentation" ref={ref} onClick={closeDialog}>
+        <div role="presentation" onClick={(e) => e.stopPropagation()}>
           <div>header</div>
           <div>main</div>
           <div>
@@ -54,8 +54,8 @@ const ShowDialogComponent = () => {
             </button>
           </div>
         </div>
-      </Dialog>
-    </>
+      </dialog>
+    </div>
   );
 };
 ```
@@ -74,13 +74,9 @@ Wait for user operation in a Promise and handle it with its return ('main', 'sub
 
 ```tsx
 import { useCallback } from 'react';
-import {
-  Dialog,
-  useDialogPromise,
-  DialogResponse,
-} from '@kamo88/react-dialog-hooks';
+import { useDialogPromise, DialogResponse } from '@kamo88/react-dialog-hooks';
 
-const ShowPromiseDialogComponent = () => {
+const UseDialogPromiseExample = () => {
   const {
     ref,
     isOpen,
@@ -92,59 +88,101 @@ const ShowPromiseDialogComponent = () => {
 
   const handleShowDialog = useCallback(async () => {
     const dialogRes = await showDialog();
-
     if (dialogRes === DialogResponse.main) {
-      // main processing ex) primary button\`s action
+      // main processing ex) primary button`s action
       return;
     }
 
     if (dialogRes === DialogResponse.sub) {
-      // sub processing ex) secondary button\`s action
+      // sub processing ex) secondary button`s action
       return;
     }
 
     if (dialogRes === DialogResponse.abort) {
-      // abort processing ex) click away\`s action & Dialog\`s unmount
+      // abort processing ex) click away`s action & This Component`s unmount
     }
   }, [showDialog]);
 
   return (
-    <>
+    <div>
       <button type="button" onClick={handleShowDialog}>
         showDialog
       </button>
-      <Dialog ref={ref} isOpen={isOpen} onClickAway={closeDialogAbort}>
-        <div>
+      <dialog role="presentation" ref={ref} onClick={closeDialogAbort}>
+        <div role="presentation" onClick={(e) => e.stopPropagation()}>
           <div>header</div>
           <div>main</div>
           <div>
             footer
             <button type="button" onClick={closeDialogMain}>
-              closeDialog main
+              closeDialogMain
             </button>
             <button type="button" onClick={closeDialogSub}>
-              closeDialog sub
+              closeDialogSub
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </div>
+  );
+};
+```
+
+### Dialog
+
+<detail>
+
+<summary>example</summary>
+
+```tsx
+import { Dialog, useDialog } from '@kamo88/react-dialog-hooks';
+
+const DialogComponentExample = () => {
+  const { ref, isOpen, showDialog, closeDialog } = useDialog();
+
+  return (
+    <div>
+      <button type="button" onClick={showDialog}>
+        showDialog
+      </button>
+      <Dialog
+        className="backdrop:bg-gray-900 backdrop:opacity-80"
+        ref={ref}
+        isOpen={isOpen}
+        className="dialogClass"
+        shouldFocusTrap
+        initialFocus={false}
+        onClickAway={closeDialog}
+      >
+        <div>
+          <div>header</div>
+          <div>main</div>
+          <div>
+            footer
+            <button type="button" onClick={closeDialog}>
+              closeDialog main
             </button>
           </div>
         </div>
       </Dialog>
-    </>
+    </div>
   );
 };
 ```
+
+</detail>
 
 </details>
 
 ## Dialog Component Props
 
-| key             | type                                 | required | default   | description                                                                                                                                             |
-| --------------- | ------------------------------------ | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ref             | React.RefObject\<HTMLDialogElement\> | ⭕       |           | dialog ref                                                                                                                                              |
-| children        | ReactNode                            | ⭕       |           | dialog contents                                                                                                                                         |
-| isOpen          | boolean                              | ⭕       |           | dialog open state                                                                                                                                       |
-| shouldFocusTrap | boolean                              |          | true      |                                                                                                                                                         |
-| initialFocus    | undefined or false                   |          | undefined | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.                                                |
-| className       | string                               |          |           | This is \<dialog\> element\`s className.<br> Please use CSS framework. ex) tailwindcss. <br> As a side note, you can also use css props (@emotion/css). |
-| onClickAway     | () => void                           |          |           | Event when backdrop in Dialog is clicked.                                                                                                               |
+| key             | type                                 | required | default   | description                                                                                               |
+| --------------- | ------------------------------------ | -------- | --------- | --------------------------------------------------------------------------------------------------------- |
+| ref             | React.RefObject\<HTMLDialogElement\> | ⭕       |           | dialog ref                                                                                                |
+| children        | ReactNode                            | ⭕       |           | dialog contents.<br>Basically, include elements that can focus.                                           |
+| isOpen          | boolean                              | ⭕       |           | dialog open state                                                                                         |
+| shouldFocusTrap | boolean                              |          | true      |                                                                                                           |
+| initialFocus    | undefined or false                   |          | undefined | This is based on the [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme) property.  |
+| onClickAway     | () => void                           |          |           | Event when backdrop in Dialog is clicked.<br>This is an alternative to the click event in the dialog tag. |
 
 & \<dialog\> element\`s attributes
