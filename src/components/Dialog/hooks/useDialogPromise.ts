@@ -26,7 +26,10 @@ export const useDialogPromise = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const showDialog = useCallback(() => {
-    resolveState.current?.('abort');
+    if (ref.current?.open) {
+      return promiseState.current;
+    }
+
     setIsOpen(true);
     ref.current?.showModal();
     promiseState.current = new Promise<DialogResponseState>((resolve) => {
@@ -36,18 +39,21 @@ export const useDialogPromise = () => {
   }, []);
 
   const closeDialogMain = useCallback(() => {
+    if (!ref.current?.open) return;
     setIsOpen(false);
     ref.current?.close();
     resolveState.current?.('main');
   }, []);
 
   const closeDialogSub = useCallback(() => {
+    if (!ref.current?.open) return;
     setIsOpen(false);
     ref.current?.close();
     resolveState.current?.('sub');
   }, []);
 
   const closeDialogAbort = useCallback(() => {
+    if (!ref.current?.open) return;
     setIsOpen(false);
     ref.current?.close();
     resolveState.current?.('abort');
