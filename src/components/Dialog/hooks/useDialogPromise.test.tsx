@@ -1,12 +1,105 @@
-import { expect, test, describe } from 'vitest';
-import { renderHook } from '@testing-library/react';
-// import { sleep } from '@/utils/sleep';
+import { expect, test, describe, afterAll, beforeAll, vi } from 'vitest';
 import {
-  useDialogPromise,
-  // DialogResponse
-} from './useDialogPromise';
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import { useCallback } from 'react';
+import { useDialogPromise, DialogResponse } from './useDialogPromise';
 
-// const SLEEP_MS = 50;
+const handleCloseDialogMain = vi.fn();
+const handleCloseDialogSub = vi.fn();
+const handleCloseDialogAbort = vi.fn();
+
+const ConnectDialog = () => {
+  const {
+    ref,
+    isOpen,
+    showDialog,
+    closeDialogMain,
+    closeDialogSub,
+    closeDialogAbort,
+  } = useDialogPromise();
+
+  const handleShowDialog = useCallback(async () => {
+    const dialogRes = await showDialog();
+
+    switch (dialogRes) {
+      case DialogResponse.main:
+        handleCloseDialogMain();
+        break;
+      case DialogResponse.sub:
+        handleCloseDialogSub();
+        break;
+      case DialogResponse.abort:
+        handleCloseDialogAbort();
+        break;
+      default:
+        break;
+    }
+  }, [showDialog]);
+
+  return (
+    <div>
+      <p data-testid="p">{isOpen ? 'true' : 'false'}</p>
+      <button data-testid="button" type="button" onClick={handleShowDialog}>
+        showDialog
+      </button>
+      <dialog
+        role="presentation"
+        data-testid="dialog"
+        ref={ref}
+        onClick={closeDialogAbort}
+      >
+        <button
+          data-testid="closeDialogMain"
+          type="button"
+          onClick={closeDialogMain}
+        >
+          closeDialogMain
+        </button>
+        <button
+          data-testid="closeDialogSub"
+          type="button"
+          onClick={closeDialogSub}
+        >
+          closeDialogSub
+        </button>
+      </dialog>
+    </div>
+  );
+};
+
+const showOrigin = HTMLDialogElement.prototype.show;
+const showModalOrigin = HTMLDialogElement.prototype.showModal;
+const closeOrigin = HTMLDialogElement.prototype.close;
+
+beforeAll(() => {
+  HTMLDialogElement.prototype.show = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  });
+  HTMLDialogElement.prototype.showModal = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  });
+  HTMLDialogElement.prototype.close = vi.fn(function mock(
+    this: HTMLDialogElement,
+  ) {
+    this.open = false;
+  });
+});
+
+afterAll(() => {
+  HTMLDialogElement.prototype.show = showOrigin;
+  HTMLDialogElement.prototype.showModal = showModalOrigin;
+  HTMLDialogElement.prototype.close = closeOrigin;
+  vi.clearAllMocks();
+});
 
 describe('hooks/useDialogPromise', () => {
   test('return', () => {
@@ -19,29 +112,60 @@ describe('hooks/useDialogPromise', () => {
     expect(result.current.closeDialogAbort).toBeTruthy();
   });
 
-  // describe('showDialog', () => {
-  //   test('closeDialogMain', async () => {
-  //     const { result } = renderHook(() => useDialogPromise());
-  //     const showDialogPromise = result.current.showDialog();
-  //     await sleep(SLEEP_MS);
-  //     result.current.closeDialogMain();
-  //     await expect(showDialogPromise).resolves.toBe(DialogResponse.main);
-  //   });
+  describe('connect dialog', () => {
+    render(<ConnectDialog />);
 
-  //   test('closeDialogSub', async () => {
-  //     const { result } = renderHook(() => useDialogPromise());
-  //     const showDialogPromise = result.current.showDialog();
-  //     await sleep(SLEEP_MS);
-  //     result.current.closeDialogSub();
-  //     await expect(showDialogPromise).resolves.toBe(DialogResponse.sub);
-  //   });
+    const p = screen.getByTestId<HTMLParagraphElement>('p');
+    const button = screen.getByTestId<HTMLButtonElement>('button');
+    const dialog = screen.getByTestId<HTMLDialogElement>('dialog');
+    const closeMainButton =
+      screen.getByTestId<HTMLButtonElement>('closeDialogMain');
+    const closeSubButton =
+      screen.getByTestId<HTMLButtonElement>('closeDialogSub');
 
-  //   test('closeDialogAbort', async () => {
-  //     const { result } = renderHook(() => useDialogPromise());
-  //     const showDialogPromise = result.current.showDialog();
-  //     await sleep(SLEEP_MS);
-  //     result.current.closeDialogAbort();
-  //     await expect(showDialogPromise).resolves.toBe(DialogResponse.abort);
-  //   });
-  // });
+    test('showDialog', async () => {
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+      });
+    });
+
+    test('closeDialogMain', async () => {
+      fireEvent.click(closeMainButton);
+      await waitFor(() => {
+        expect(dialog.open).toBe(false);
+        expect(p.textContent).toBe('false');
+        expect(handleCloseDialogMain).toBeCalledTimes(1);
+      });
+    });
+
+    test('closeDialogSub', async () => {
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+      });
+      fireEvent.click(closeSubButton);
+      await waitFor(() => {
+        expect(dialog.open).toBe(false);
+        expect(p.textContent).toBe('false');
+        expect(handleCloseDialogSub).toBeCalledTimes(1);
+      });
+    });
+
+    test('closeDialogAbort', async () => {
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+      });
+      fireEvent.click(dialog);
+      await waitFor(() => {
+        expect(dialog.open).toBe(false);
+        expect(p.textContent).toBe('false');
+        expect(handleCloseDialogAbort).toBeCalledTimes(1);
+      });
+    });
+  });
 });
