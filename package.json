@@ -1,6 +1,6 @@
 {
   "name": "@kamo88/react-dialog-hooks",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "type": "module",
   "description": "react use dialog hooks & dialog component",
   "main": "./dist/umd/index.js",
@@ -64,6 +64,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-storybook": "^0.6.13",
+    "eslint-plugin-tailwindcss": "^3.13.0",
     "husky": "^8.0.0",
     "jsdom": "^22.1.0",
     "lint-staged": "^14.0.1",
