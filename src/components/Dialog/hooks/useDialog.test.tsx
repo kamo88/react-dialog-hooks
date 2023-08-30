@@ -7,13 +7,13 @@ const ConnectDialog = () => {
 
   return (
     <div>
-      <p data-testId="p">{isOpen ? 'true' : 'false'}</p>
-      <button data-testId="button" type="button" onClick={showDialog}>
+      <p data-testid="p">{isOpen ? 'true' : 'false'}</p>
+      <button data-testid="button" type="button" onClick={showDialog}>
         showDialog
       </button>
       <dialog
         role="presentation"
-        data-testId="dialog"
+        data-testid="dialog"
         ref={ref}
         onClick={closeDialog}
       />
