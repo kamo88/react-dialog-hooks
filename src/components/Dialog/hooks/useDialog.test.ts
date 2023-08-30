@@ -11,4 +11,13 @@ describe('hooks/useDialog', () => {
     expect(result.current.showDialog).toBeTruthy();
     expect(result.current.closeDialog).toBeTruthy();
   });
+
+  test('showDialog', () => {
+    const { result, rerender } = renderHook(() => useDialog());
+
+    result.current.showDialog();
+    rerender();
+
+    expect(result.current.isOpen).toBe(true);
+  });
 });
