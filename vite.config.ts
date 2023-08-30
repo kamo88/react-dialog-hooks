@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: path.resolve(__dirname, 'src/index.ts'),
         name: 'Kamo88Dialog', // When you build with umd, it is set in the window with this variable name.
-        fileName: 'index',
+        fileName: (format) => `${format}/index.js`,
         formats: ['es', 'umd'],
       },
       rollupOptions: {

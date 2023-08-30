@@ -1,18 +1,18 @@
 {
   "name": "@kamo88/react-dialog-hooks",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "type": "module",
   "description": "react use dialog hooks & dialog component",
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/umd/index.js",
+  "module": "./dist/es/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "require": "./dist/index.umd.cjs",
-      "import": "./dist/index.js",
+      "require": "./dist/umd/index.js",
+      "import": "./dist/es/index.js",
       "types": "./dist/types/index.d.ts"
     }
   },
