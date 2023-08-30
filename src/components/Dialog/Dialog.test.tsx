@@ -1,67 +1,49 @@
 import { expect, test, describe, beforeAll, vi, afterAll } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { FC, ReactNode, useCallback, useMemo } from 'react';
-import {
-  DialogExample as DialogExampleBase,
-  Props as DialogProps,
-} from './Dialog.example';
+import { FC, ReactNode, useCallback } from 'react';
+import { Dialog, Props as DialogProps } from './Dialog';
 import { useDialog } from './hooks/useDialog';
+
+const handleClickAway = vi.fn();
 
 type DialogTestProps = Omit<
   DialogProps,
-  'isOpen' | 'handleShowDialog' | 'initialFocus'
+  'children' | 'isOpen' | 'onClickAway' | 'data-testid'
 > & {
-  initialFocus: boolean;
-  handleClickAway: () => void;
+  hasOnClickAway?: boolean;
 };
 
 const DialogTest: FC<DialogTestProps> = ({
   shouldFocusTrap,
   initialFocus,
-  handleCloseDialogMain,
-  handleCloseDialogSub,
-  handleClickAway,
+  hasOnClickAway = false,
   ...props
 }) => {
   const { ref, isOpen, showDialog, closeDialog } = useDialog();
 
-  const shouldFocusTrapCal = useMemo(() => {
-    if (shouldFocusTrap) return undefined;
-    return false;
-  }, [shouldFocusTrap]);
-
-  const initialFocusCal = useMemo(() => {
-    if (initialFocus) return undefined;
-    return false;
-  }, [initialFocus]);
-
-  const closeMain = useCallback(() => {
-    handleCloseDialogMain();
-    closeDialog();
-  }, [closeDialog, handleCloseDialogMain]);
-
-  const closeSub = useCallback(() => {
-    handleCloseDialogSub();
-    closeDialog();
-  }, [closeDialog, handleCloseDialogSub]);
-
-  const clickAway = useCallback(() => {
+  const onClickAway = useCallback(() => {
     handleClickAway();
     closeDialog();
-  }, [closeDialog, handleClickAway]);
+  }, [closeDialog]);
 
   return (
-    <DialogExampleBase
-      {...props}
-      ref={ref}
-      isOpen={isOpen}
-      shouldFocusTrap={shouldFocusTrapCal}
-      initialFocus={initialFocusCal}
-      handleShowDialog={showDialog}
-      handleCloseDialogMain={closeMain}
-      handleCloseDialogSub={closeSub}
-      handleClickAway={clickAway}
-    />
+    <div>
+      <p data-testid="p">{isOpen ? 'true' : 'false'}</p>
+      <button type="button" data-testid="button" onClick={showDialog}>
+        showDialog
+      </button>
+      <Dialog
+        ref={ref}
+        isOpen={isOpen}
+        shouldFocusTrap={shouldFocusTrap}
+        initialFocus={initialFocus}
+        onClickAway={hasOnClickAway ? onClickAway : undefined}
+        data-testid="dialog"
+        {...props}
+      >
+        <div data-testid="dialog-contents">dialog contents</div>
+      </Dialog>
+    </div>
   );
 };
 
@@ -87,7 +69,9 @@ beforeAll(() => {
   });
 
   vi.mock('focus-trap-react', () => ({
-    default: vi.fn(({ children }: { children: ReactNode }) => children),
+    default: vi.fn(({ children }: { children: ReactNode }) => (
+      <div data-testid="focus-trap">{children}</div>
+    )),
   }));
 });
 
@@ -98,81 +82,56 @@ afterAll(() => {
   vi.clearAllMocks();
 });
 
-const handleCloseDialogMain = vi.fn();
-const handleCloseDialogSub = vi.fn();
-const handleClickAway = vi.fn();
-
 describe('components/Dialog', () => {
-  const { rerender } = render(
-    <DialogTest
-      data-testid="test-dialog"
-      shouldFocusTrap
-      initialFocus
-      handleCloseDialogMain={handleCloseDialogMain}
-      handleCloseDialogSub={handleCloseDialogSub}
-      handleClickAway={handleClickAway}
-    />,
-  );
+  const { rerender } = render(<DialogTest />);
 
-  const showDialogButton =
-    screen.getByText<HTMLButtonElement>('showDialog!!!!');
+  describe('shouldFocusTrap: default,initialFocus: default & no onClickAway event = exist focus-trap-react', () => {
+    const p = screen.getByTestId<HTMLParagraphElement>('p');
+    const button = screen.getByTestId<HTMLButtonElement>('button');
+    const dialog = screen.getByTestId<HTMLDialogElement>('dialog');
 
-  test('close', () => {
-    const dialog = screen.getByTestId<HTMLDialogElement>('test-dialog');
-    expect(dialog.open).toBe(false);
+    test('no display', () => {
+      const focusTrap = screen.queryByTestId<HTMLDivElement>('focus-trap');
+      expect(focusTrap).toBeNull();
+    });
+
+    test('showDialog', () => {
+      fireEvent.click(button);
+      const focusTrap = screen.queryByTestId<HTMLDivElement>('focus-trap');
+
+      expect(p.textContent).toBe('true');
+      expect(dialog.open).toBe(true);
+      expect(dialog.firstChild).toEqual(focusTrap);
+    });
+
+    test('click focus-trap first child', () => {
+      const focusTrap = screen.queryByTestId<HTMLDivElement>('focus-trap');
+
+      fireEvent.click(focusTrap!.firstChild!);
+
+      expect(p.textContent).toBe('true');
+      expect(dialog.open).toBe(true);
+      expect(dialog.firstChild).toEqual(focusTrap);
+      rerender(<DialogTest shouldFocusTrap={false} />);
+    });
   });
 
-  test('showDialog', async () => {
-    fireEvent.click(showDialogButton);
+  describe('shouldFocusTrap: false = no focus-trap-react', () => {
+    const p = screen.getByTestId<HTMLParagraphElement>('p');
+    const button = screen.getByTestId<HTMLButtonElement>('button');
+    const dialog = screen.getByTestId<HTMLDialogElement>('dialog');
 
-    const dialog = screen.getByTestId<HTMLDialogElement>('test-dialog');
-    expect(dialog.open).toBe(true);
-  });
+    test('showDialog', () => {
+      fireEvent.click(button);
+      const focusTrap = screen.queryByTestId<HTMLDivElement>('focus-trap');
 
-  test('close main', async () => {
-    const mainButton = screen.getByText<HTMLButtonElement>(
-      'closeDialog main!!!!',
-    );
-    fireEvent.click(mainButton);
-    expect(handleCloseDialogMain).toBeCalledTimes(1);
+      const dialogContents =
+        screen.getByTestId<HTMLDivElement>('dialog-contents');
 
-    const dialog = screen.getByTestId<HTMLDialogElement>('test-dialog');
-    expect(dialog.open).toBe(false);
-  });
-
-  test('close sub', async () => {
-    fireEvent.click(showDialogButton);
-    const subButton = screen.getByText<HTMLButtonElement>(
-      'closeDialog sub!!!!',
-    );
-    fireEvent.click(subButton);
-    expect(handleCloseDialogSub).toBeCalledTimes(1);
-
-    const dialog = screen.getByTestId<HTMLDialogElement>('test-dialog');
-    expect(dialog.open).toBe(false);
-  });
-
-  test('click away', async () => {
-    fireEvent.click(showDialogButton);
-    const dialog = screen.getByTestId<HTMLDialogElement>('test-dialog');
-    fireEvent.click(dialog);
-    expect(handleClickAway).toBeCalledTimes(1);
-    expect(dialog.open).toBe(false);
-  });
-
-  test('shouldFocusTrap: false (focus-trap-react is mock)', () => {
-    rerender(
-      <DialogTest
-        data-testid="test-dialog"
-        shouldFocusTrap={false}
-        initialFocus={false}
-        handleCloseDialogMain={handleCloseDialogMain}
-        handleCloseDialogSub={handleCloseDialogSub}
-        handleClickAway={handleClickAway}
-      />,
-    );
-
-    const dialog = screen.getByTestId<HTMLDialogElement>('test-dialog');
-    expect(dialog.children).toHaveLength(1);
+      expect(p.textContent).toBe('true');
+      expect(dialog.open).toBe(true);
+      expect(dialog.firstChild).toEqual(dialogContents);
+      expect(focusTrap).toBeNull();
+    });
   });
 });
