@@ -27,7 +27,6 @@ export const useDialogPromise = () => {
 
   const showDialog = useCallback(() => {
     if (ref.current?.open) {
-      resolveState.current?.('abort');
       return promiseState.current;
     }
 
