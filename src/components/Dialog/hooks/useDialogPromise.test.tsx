@@ -113,7 +113,7 @@ describe('hooks/useDialogPromise', () => {
   });
 
   describe('connect dialog', () => {
-    render(<ConnectDialog />);
+    const { unmount } = render(<ConnectDialog />);
 
     const p = screen.getByTestId<HTMLParagraphElement>('p');
     const button = screen.getByTestId<HTMLButtonElement>('button');
@@ -165,6 +165,104 @@ describe('hooks/useDialogPromise', () => {
         expect(dialog.open).toBe(false);
         expect(p.textContent).toBe('false');
         expect(handleCloseDialogAbort).toBeCalledTimes(1);
+      });
+    });
+
+    test('showDialog in a row', async () => {
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+      });
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+        // call 'showDialog', 'closeDialogSub', 'closeDialogAbort' & this case 1
+        expect(HTMLDialogElement.prototype.showModal).toBeCalledTimes(4);
+      });
+    });
+
+    test('closeDialogMain in a row', async () => {
+      fireEvent.click(closeMainButton);
+      fireEvent.click(closeMainButton);
+      await waitFor(() => {
+        expect(dialog.open).toBe(false);
+        expect(p.textContent).toBe('false');
+        // call 'closeDialogMain', 'closeDialogSub', 'closeDialogAbort' & this case 1
+        expect(HTMLDialogElement.prototype.close).toBeCalledTimes(4);
+      });
+    });
+
+    test('closeDialogSub in a row', async () => {
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+      });
+
+      fireEvent.click(closeSubButton);
+      fireEvent.click(closeSubButton);
+      await waitFor(() => {
+        expect(dialog.open).toBe(false);
+        expect(p.textContent).toBe('false');
+        /**
+         * call
+         * 'closeDialogMain',
+         * 'closeDialogSub',
+         * 'closeDialogAbort',
+         * 'closeDialogMain in a row'
+         * this case 1
+         */
+        expect(HTMLDialogElement.prototype.close).toBeCalledTimes(5);
+      });
+    });
+
+    test('closeDialogAbort in a row', async () => {
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+      });
+
+      fireEvent.click(dialog);
+      fireEvent.click(dialog);
+      await waitFor(() => {
+        expect(dialog.open).toBe(false);
+        expect(p.textContent).toBe('false');
+        /**
+         * call
+         * 'closeDialogMain',
+         * 'closeDialogSub',
+         * 'closeDialogAbort',
+         * 'closeDialogMain in a row',
+         * 'closeDialogSub in a row',
+         * this case 1
+         */
+        expect(HTMLDialogElement.prototype.close).toBeCalledTimes(6);
+      });
+    });
+
+    test('unmount', async () => {
+      fireEvent.click(button);
+      await waitFor(() => {
+        expect(dialog.open).toBe(true);
+        expect(p.textContent).toBe('true');
+      });
+
+      unmount();
+      await waitFor(() => {
+        /**
+         * call
+         * 'closeDialogMain',
+         * 'closeDialogSub',
+         * 'closeDialogAbort',
+         * 'closeDialogMain in a row',
+         * 'closeDialogSub in a row',
+         * 'closeDialogAbort in a row',
+         * this case 1
+         */
+        expect(HTMLDialogElement.prototype.close).toBeCalledTimes(7);
       });
     });
   });
