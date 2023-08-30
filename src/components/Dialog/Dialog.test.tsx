@@ -1,7 +1,6 @@
 import { expect, test, describe, beforeAll, vi, afterAll } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { FC, ReactNode, useCallback, useMemo } from 'react';
-import { noop } from '@/utils/noop';
 import {
   DialogExample as DialogExampleBase,
   Props as DialogProps,
@@ -66,14 +65,11 @@ const DialogTest: FC<DialogTestProps> = ({
   );
 };
 
-let showOrigin: typeof HTMLDialogElement.prototype.show = noop;
-let showModalOrigin: typeof HTMLDialogElement.prototype.showModal = noop;
-let closeOrigin: typeof HTMLDialogElement.prototype.close = noop;
+const showOrigin = HTMLDialogElement.prototype.show;
+const showModalOrigin = HTMLDialogElement.prototype.showModal;
+const closeOrigin = HTMLDialogElement.prototype.close;
 
 beforeAll(() => {
-  showOrigin = HTMLDialogElement.prototype.show;
-  showModalOrigin = HTMLDialogElement.prototype.showModal;
-  closeOrigin = HTMLDialogElement.prototype.close;
   HTMLDialogElement.prototype.show = vi.fn(function mock(
     this: HTMLDialogElement,
   ) {
