@@ -7,6 +7,80 @@
 npm i @kamo88/react-dialog-hooks
 ```
 
+or
+
+Please choose your @version
+
+```
+<script src="https://unpkg.com/@kamo88/react-dialog-hooks@0.9.1/dist/umd/index.js" crossorigin></script>
+```
+
+<details>
+
+<summary>from CDN</summary>
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/@kamo88/react-dialog-hooks@0.9.1/dist/umd/index.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function Hello() {
+        const { ref, isOpen, showDialog, closeDialog } =
+          Kamo88Dialog.useDialog();
+        return (
+          <div>
+            <button type="button" onClick={showDialog}>
+              showDialog
+            </button>
+            <Kamo88Dialog.Dialog
+              ref={ref}
+              isOpen={isOpen}
+              onClickAway={closeDialog}
+            >
+              <div>
+                <div>header</div>
+                <div>Hello World!</div>
+                <div>
+                  <button type="button" onClick={closeDialog}>
+                    closeDialog main
+                  </button>
+                  <button type="button" onClick={closeDialog}>
+                    closeDialog sub
+                  </button>
+                </div>
+              </div>
+            </Kamo88Dialog.Dialog>
+          </div>
+        );
+      }
+
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<Hello />);
+    </script>
+  </body>
+</html>
+```
+
+</details>
+
 # @kamo88/react-dialog-hooks
 
 This React component & hooks are to be displayed using the \<dialog\> tag.
@@ -128,9 +202,11 @@ const UseDialogPromiseExample = () => {
 };
 ```
 
+</details>
+
 ### Dialog
 
-<detail>
+<details>
 
 <summary>example</summary>
 
@@ -169,8 +245,6 @@ const DialogComponentExample = () => {
   );
 };
 ```
-
-</detail>
 
 </details>
 
