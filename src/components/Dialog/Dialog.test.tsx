@@ -1,6 +1,15 @@
-import { expect, test, describe, beforeAll, vi, afterAll } from 'vitest';
+import {
+  expect,
+  test,
+  describe,
+  beforeAll,
+  vi,
+  afterAll,
+  SpyInstance,
+} from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { FC, ReactNode, useCallback } from 'react';
+import bodyScrollLock from 'body-scroll-lock';
 import { Dialog, Props as DialogProps } from './Dialog';
 import { useDialog } from './hooks/useDialog';
 
@@ -51,6 +60,8 @@ const showOrigin = HTMLDialogElement.prototype.show;
 const showModalOrigin = HTMLDialogElement.prototype.showModal;
 const closeOrigin = HTMLDialogElement.prototype.close;
 
+let clearAllBodyScrollLocks: SpyInstance = vi.fn();
+
 beforeAll(() => {
   HTMLDialogElement.prototype.show = vi.fn(function mock(
     this: HTMLDialogElement,
@@ -73,6 +84,8 @@ beforeAll(() => {
       <div data-testid="focus-trap">{children}</div>
     )),
   }));
+
+  clearAllBodyScrollLocks = vi.spyOn(bodyScrollLock, 'clearAllBodyScrollLocks');
 });
 
 afterAll(() => {
@@ -83,7 +96,7 @@ afterAll(() => {
 });
 
 describe('components/Dialog', () => {
-  const { rerender } = render(<DialogTest />);
+  const { rerender, unmount } = render(<DialogTest />);
 
   describe('shouldFocusTrap: default,initialFocus: default & no onClickAway event = exist focus-trap-react', () => {
     const p = screen.getByTestId<HTMLParagraphElement>('p');
@@ -133,5 +146,13 @@ describe('components/Dialog', () => {
       expect(dialog.firstChild).toEqual(dialogContents);
       expect(focusTrap).toBeNull();
     });
+  });
+
+  test('check unmount call clearAllBodyScrollLocks', () => {
+    unmount();
+    /**
+     * unmount DialogTest & Dialog Component
+     */
+    expect(clearAllBodyScrollLocks).toBeCalledTimes(2);
   });
 });
