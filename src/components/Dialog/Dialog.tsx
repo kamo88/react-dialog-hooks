@@ -4,8 +4,9 @@ import {
   memo,
   useMemo,
   HtmlHTMLAttributes,
+  useEffect,
 } from 'react';
-import { useLockBodyScroll } from 'react-use';
+import { clearAllBodyScrollLocks } from 'body-scroll-lock';
 import { DialogContainer } from './DialogContainer';
 
 export type Props = Omit<
@@ -40,7 +41,12 @@ const DialogBase = forwardRef<HTMLDialogElement, Props>(
       [onClickAway],
     );
 
-    useLockBodyScroll(isOpen);
+    useEffect(
+      () => () => {
+        clearAllBodyScrollLocks();
+      },
+      [ref],
+    );
 
     return (
       <dialog
