@@ -90,7 +90,7 @@ This React component & hooks are to be displayed using the \<dialog\> tag.
 ## Description
 
 1. Hooks for using the dialog tag.
-2. Dialog Component uses [react-use/useLockBodyScroll](https://github.com/streamich/react-use/blob/master/docs/useLockBodyScroll.md) to scroll the body and stop.
+2. Using [body-scroll-lock](https://github.com/willmcpo/body-scroll-lock) to stop the body scrolling.
 3. Dialog Component loops focus to a focusable element in the content using [focus-trap-react](https://github.com/focus-trap/focus-trap-react#readme).
 4. Dialog Component can be styled using className. ex) [tailwindcss](https://tailwindcss.com/) , css modules ([@emotion/react](https://www.npmjs.com/package/@emotion/react) is also available)
 
