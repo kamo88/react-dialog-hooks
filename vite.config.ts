@@ -4,6 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 import dts from 'vite-plugin-dts';
 import { visualizer } from 'rollup-plugin-visualizer';
+import license from 'rollup-plugin-license';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -50,6 +51,15 @@ export default defineConfig(({ mode }) => {
           path.resolve(__dirname, 'src/components/Dialog'),
         ],
         outDir: path.resolve(__dirname, 'dist/types'),
+      }),
+      license({
+        thirdParty: {
+          includePrivate: true, // Default is false.
+          output: {
+            file: path.join(__dirname, 'dist', 'dependencies.txt'),
+            encoding: 'utf-8', // Default is utf-8.
+          },
+        },
       }),
       isAnalyze &&
         visualizer({
