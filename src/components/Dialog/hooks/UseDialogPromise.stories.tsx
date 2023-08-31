@@ -64,8 +64,11 @@ const DialogExample: FC<Props> = ({
   }, [actionCheckDialogOpen, isOpen]);
 
   return (
-    <div>
+    <div className={clsx('flex flex-col')}>
       <Button onClick={handleShowDialog}>showDialog</Button>
+      <div className={clsx('h-[1000px] w-[500px] outline outline-lime-500')}>
+        check scroll lock
+      </div>
       <dialog
         role="presentation"
         ref={ref}

@@ -1,5 +1,10 @@
 import { noop } from '@/utils/noop';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  enableBodyScroll,
+  disableBodyScroll,
+  clearAllBodyScrollLocks,
+} from 'body-scroll-lock';
 
 export const DialogResponse = {
   main: 'main',
@@ -32,6 +37,13 @@ export const useDialogPromise = () => {
 
     setIsOpen(true);
     ref.current?.showModal();
+    if (ref.current) {
+      /**
+       * The dialog should appear on the entire screen.
+       * The only touchable elements other than the dialog should be the dialog's child elements.
+       */
+      disableBodyScroll(ref.current, { allowTouchMove: () => true });
+    }
     promiseState.current = new Promise<DialogResponseState>((resolve) => {
       resolveState.current = resolve;
     });
@@ -43,6 +55,9 @@ export const useDialogPromise = () => {
     setIsOpen(false);
     ref.current?.close();
     resolveState.current?.('main');
+    if (ref.current) {
+      enableBodyScroll(ref.current);
+    }
   }, []);
 
   const closeDialogSub = useCallback(() => {
@@ -50,6 +65,9 @@ export const useDialogPromise = () => {
     setIsOpen(false);
     ref.current?.close();
     resolveState.current?.('sub');
+    if (ref.current) {
+      enableBodyScroll(ref.current);
+    }
   }, []);
 
   const closeDialogAbort = useCallback(() => {
@@ -57,6 +75,9 @@ export const useDialogPromise = () => {
     setIsOpen(false);
     ref.current?.close();
     resolveState.current?.('abort');
+    if (ref.current) {
+      enableBodyScroll(ref.current);
+    }
   }, []);
 
   useEffect(() => {
@@ -66,6 +87,7 @@ export const useDialogPromise = () => {
       setIsOpen(false);
       dialogRef?.close();
       resolveState.current?.('abort');
+      clearAllBodyScrollLocks();
     };
   }, []);
 
