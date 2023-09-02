@@ -53,6 +53,10 @@ export default defineConfig(({ mode }) => {
           path.resolve(__dirname, 'src/**/*.test.*'),
           path.resolve(__dirname, 'src/**/*.stories.*'),
           path.resolve(__dirname, 'src/**/*.example.*'),
+          path.resolve(
+            __dirname,
+            'src/components/Dialog/hooks/getIsDialogChild.ts',
+          ),
           path.resolve(__dirname, 'src/components/Dialog/DialogContainer.tsx'), // including Dialog
         ],
         include: [
