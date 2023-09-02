@@ -1,12 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":timezone(Asia/Tokyo)", ":automergePatch"],
-  "schedule": ["before 10am", "last week of the month", "saturday"],
+  "extends": [
+    "config:base",
+    ":timezone(Asia/Tokyo)",
+    ":automergePatch",
+    "schedule:earlyMondays"
+  ],
+  "enabledManagers": ["npm"],
   "packageRules": [
     {
       "extends": "packages:linters",
       "groupName": "linters",
-      "matchPackagePatterns": ["*eslint*", "*prettier*"]
+      "packagePatterns": ["^@typescript-eslint/", "^prettier"]
     },
     {
       "matchPackageNames": [
