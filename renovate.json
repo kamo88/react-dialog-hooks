@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", ":timezone(Asia/Tokyo)", ":automergePatch"],
+  "schedule": ["before 10am", "last week of the month", "saturday"],
+  "packageRules": [
+    {
+      "extends": "packages:linters",
+      "groupName": "linters",
+      "matchPackagePatterns": ["*eslint*", "*prettier*"]
+    },
+    {
+      "matchPackageNames": [
+        "react",
+        "@types/react",
+        "react-dom",
+        "@types/react-dom"
+      ],
+      "groupName": "react"
+    }
+  ]
+}
