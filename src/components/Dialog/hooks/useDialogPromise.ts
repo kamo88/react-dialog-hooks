@@ -42,7 +42,14 @@ export const useDialogPromise = () => {
        * The dialog should appear on the entire screen.
        * The only touchable elements other than the dialog should be the dialog's child elements.
        */
-      disableBodyScroll(ref.current, { allowTouchMove: () => true });
+      disableBodyScroll(ref.current, {
+        allowTouchMove: () => true,
+        /**
+         * One accurate determination process.
+         * ./getIsDialogChild
+         */
+        // allowTouchMove: (el) => getIsDialogChild(el, ref.current),
+      });
     }
     promiseState.current = new Promise<DialogResponseState>((resolve) => {
       resolveState.current = resolve;

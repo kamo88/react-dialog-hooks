@@ -21,6 +21,11 @@ export const useDialog = () => {
        */
       disableBodyScroll(ref.current, {
         allowTouchMove: () => true,
+        /**
+         * One accurate determination process.
+         * ./getIsDialogChild
+         */
+        // allowTouchMove: (el) => getIsDialogChild(el, ref.current),
       });
     }
   }, []);
