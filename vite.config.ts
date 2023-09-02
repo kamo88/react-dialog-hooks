@@ -54,10 +54,8 @@ export default defineConfig(({ mode }) => {
       }),
       license({
         thirdParty: {
-          includePrivate: true, // Default is false.
           output: {
             file: path.join(__dirname, 'dist', 'dependencies.txt'),
-            encoding: 'utf-8', // Default is utf-8.
           },
         },
       }),
