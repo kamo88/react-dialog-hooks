@@ -1,20 +1,20 @@
 import { RefObject } from 'react';
 
-export const getIsDialogChild = (
+export type GetIsDialogChild = (
   el: HTMLElement | Element,
   ref: RefObject<HTMLDialogElement>,
-): boolean => {
-  if (!ref.current) return false;
-  if (el === ref.current) return false;
+) => boolean;
 
-  let tempEl = el;
-  while (tempEl !== ref.current) {
-    if (tempEl.parentElement?.tagName === 'body') {
-      return false;
-    }
-    if (tempEl.parentElement) {
-      tempEl = tempEl.parentElement;
-    }
+export const getIsDialogChild: GetIsDialogChild = (el, ref) => {
+  const refCurrent = ref.current;
+  if (!refCurrent) return false;
+  if (el === refCurrent) return false;
+
+  let { parentElement } = el;
+
+  while (parentElement && parentElement !== document.body) {
+    if (parentElement === refCurrent) return true;
+    parentElement = parentElement.parentElement;
   }
-  return true;
+  return false;
 };
