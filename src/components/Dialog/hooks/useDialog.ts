@@ -25,7 +25,7 @@ export const useDialog = () => {
          * One accurate determination process.
          * ./getIsDialogChild
          */
-        // allowTouchMove: (el) => getIsDialogChild(el, ref),
+        // allowTouchMove: (el) => getIsDialogChild(el, ref.current),
       });
     }
   }, []);
