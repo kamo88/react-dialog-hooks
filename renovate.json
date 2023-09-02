@@ -8,6 +8,7 @@
   ],
   "enabledManagers": ["npm"],
   "ignoreDeps": ["npm"],
+  "prHourlyLimit": 0,
   "packageRules": [
     {
       "extends": "packages:linters",
