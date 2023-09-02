@@ -1,4 +1,4 @@
-name: assign-author-to-PR-&-chore/workflowISSUE
+name: assign author to PR
 on:
   pull_request:
     types: [opened]
