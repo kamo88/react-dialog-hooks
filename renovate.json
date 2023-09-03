@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":timezone(Asia/Tokyo)",
+    ":automergePatch",
+    "schedule:earlyMondays"
+  ],
+  "enabledManagers": ["npm"],
+  "ignoreDeps": ["npm"],
+  "prHourlyLimit": 0,
+  "packageRules": [
+    {
+      "extends": "packages:linters",
+      "groupName": "linters",
+      "packagePatterns": ["^@typescript-eslint/", "^prettier"]
+    },
+    {
+      "matchPackageNames": [
+        "react",
+        "@types/react",
+        "react-dom",
+        "@types/react-dom"
+      ],
+      "groupName": "react"
+    }
+  ]
+}

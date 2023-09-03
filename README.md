@@ -1,7 +1,7 @@
-![NPM](https://img.shields.io/npm/l/%40kamo88%2Freact-dialog-hooks)
+![license](https://img.shields.io/npm/l/%40kamo88%2Freact-dialog-hooks)
 ![npm (scoped)](https://img.shields.io/npm/v/%40kamo88/react-dialog-hooks)
-[![pages-build-deployment](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/pages/pages-build-deployment)
-[![package-publish-to-npm](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/kamo88/react-dialog/actions/workflows/publish.yml)
+[![codecov](https://codecov.io/gh/kamo88/react-dialog-hooks/graph/badge.svg?token=W77V28C2TY)](https://codecov.io/gh/kamo88/react-dialog-hooks)
+[![pages-build-deployment](https://github.com/kamo88/react-dialog-hooks/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/kamo88/react-dialog-hooks/actions/workflows/pages/pages-build-deployment)
 
 ```
 npm i @kamo88/react-dialog-hooks

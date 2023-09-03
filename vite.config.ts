@@ -11,6 +11,11 @@ export default defineConfig(({ mode }) => {
   const isAnalyze = mode === 'analyze';
   return {
     resolve: {
+      /**
+       * The combination of vite-tsconfig-paths and vite-plugin-dts does not resolve ailias when the d.ts file is created.
+       * However, with other plugins,
+       * it looked like the file creation was running twice, so I left it set to this configuration for the time being.
+       */
       alias: {
         '@': path.resolve(__dirname, 'src'),
       },
@@ -22,6 +27,10 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: path.resolve(__dirname, 'src/index.ts'),
         name: 'Kamo88Dialog', // When you build with umd, it is set in the window with this variable name.
+        /**
+         * By default, umd format is built in .cjs.
+         * In unpkg, .cjs would be provided in text/plain format.(2023/9/2)
+         */
         fileName: (format) => `${format}/index.js`,
         formats: ['es', 'umd'],
       },
@@ -44,7 +53,11 @@ export default defineConfig(({ mode }) => {
           path.resolve(__dirname, 'src/**/*.test.*'),
           path.resolve(__dirname, 'src/**/*.stories.*'),
           path.resolve(__dirname, 'src/**/*.example.*'),
-          path.resolve(__dirname, 'src/components/Dialog/DialogContainer.tsx'),
+          path.resolve(
+            __dirname,
+            'src/components/Dialog/hooks/getIsDialogChild.ts',
+          ),
+          path.resolve(__dirname, 'src/components/Dialog/DialogContainer.tsx'), // including Dialog
         ],
         include: [
           path.resolve(__dirname, 'src/index.ts'),
@@ -54,10 +67,8 @@ export default defineConfig(({ mode }) => {
       }),
       license({
         thirdParty: {
-          includePrivate: true, // Default is false.
           output: {
             file: path.join(__dirname, 'dist', 'dependencies.txt'),
-            encoding: 'utf-8', // Default is utf-8.
           },
         },
       }),
