@@ -3,7 +3,7 @@
   "extends": [
     "config:base",
     ":timezone(Asia/Tokyo)",
-    ":automergePatch",
+    ":automergeMinor",
     "schedule:earlyMondays"
   ],
   "enabledManagers": ["npm"],
