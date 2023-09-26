@@ -12,7 +12,7 @@ or
 Please choose your @version
 
 ```
-<script src="https://unpkg.com/@kamo88/react-dialog-hooks@0.9.1/dist/umd/index.js" crossorigin></script>
+<script src="https://unpkg.com/@kamo88/react-dialog-hooks@0.9.5/dist/umd/index.js" crossorigin></script>
 ```
 
 <details>
@@ -32,7 +32,7 @@ Please choose your @version
       crossorigin
     ></script>
     <script
-      src="https://unpkg.com/@kamo88/react-dialog-hooks@0.9.1/dist/umd/index.js"
+      src="https://unpkg.com/@kamo88/react-dialog-hooks@0.9.5/dist/umd/index.js"
       crossorigin
     ></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
