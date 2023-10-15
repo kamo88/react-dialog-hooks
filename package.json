@@ -112,7 +112,7 @@
   },
   "homepage": "https://github.com/kamo88/react-dialog-hooks#readme",
   "volta": {
-    "node": "18.18.1"
+    "node": "18.18.2"
   },
   "engines": {
     "node": "^18",
