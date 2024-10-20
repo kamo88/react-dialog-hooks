@@ -112,10 +112,10 @@
   },
   "homepage": "https://github.com/kamo88/react-dialog-hooks#readme",
   "volta": {
-    "node": "18.18.2"
+    "node": "20.18.0"
   },
   "engines": {
-    "node": "^18",
+    "node": "^20.0.0",
     "npm": "^9",
     "yarn": "Please use npm",
     "pnpm": "Please use npm"
